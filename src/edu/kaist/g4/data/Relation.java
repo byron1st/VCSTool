@@ -9,28 +9,53 @@ import java.util.HashMap;
  *  Connector contains Attributes
  */
 
+enum RelationType { RELATION, USE }
+
 public class Relation {
     
-    private String id;
-    private HashMap<String,String> attributes;
+    private RelationType type;
+    private ArchitectureElement source, destination;
+    private HashMap<AttributeType ,String> attributes;
 
-    public Relation(String id){
-        id = this.id;
-        attributes = new HashMap<String,String>();
-        
+    public Relation(RelationType type, ArchitectureElement source, ArchitectureElement destination){
+        this.type = type;
+        this.source = source;
+        this.destination = destination;
+        this.attributes = new HashMap<AttributeType, String>();
     }
 
-    public void addAttribute(String key, String value){
-        attributes.put(key, value);
+    public RelationType getType() {
+        return type;
     }
-    
-    public String getID(){
-        return id;
+
+    public void setType(RelationType type) {
+        this.type = type;
     }
-    
-    public HashMap<String,String> getAttributes(){
+
+    public ArchitectureElement getSource() {
+        return source;
+    }
+
+    public void setSource(ArchitectureElement source) {
+        this.source = source;
+    }
+
+    public ArchitectureElement getDestination() {
+        return destination;
+    }
+
+    public void setDestination(ArchitectureElement destination) {
+        this.destination = destination;
+    }
+
+    public HashMap<AttributeType, String> getAttributes() {
         return attributes;
     }
+
+    public void setAttributes(HashMap<AttributeType, String> attributes) {
+        this.attributes = attributes;
+    }
+
     
 
 }

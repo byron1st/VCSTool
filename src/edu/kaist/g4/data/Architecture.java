@@ -1,7 +1,6 @@
 package edu.kaist.g4.data;
 
-import java.awt.Component;
-import java.util.Vector;
+import java.util.HashMap;
 
 /**
  * 
@@ -9,57 +8,48 @@ import java.util.Vector;
  *
  */
 
+
 public class Architecture implements IArchitecture{
 
-    protected String archname,  version,    id;
-    
-    
-    protected Vector<View> views;
-    protected Vector<TraceabilityLink> tLinks;
+    protected String archname, id;
+
+    protected View[][] views;
+    protected HashMap<String, TraceabilityLink> tLinks;
     
     //객체생성을 언제, 어떻게
     public Architecture(String archname){
-        views = new Vector<View>();
-        tLinks = new Vector<TraceabilityLink>();
+        views = new View[ViewType.values().length][2];  //recnentArchitecture, workingArchitecture
+        tLinks = new HashMap<String, TraceabilityLink>();
         
         id = archname + System.currentTimeMillis();
-        version = "??";
         this.archname = archname;
     }
 
     @Override
-    public void addView(ViewType type, View view) throws Exception {
+    public void addView(ViewType type, ViewVesion version, View view){
 
-        type.compareTo(ViewType.CNC);
-        switch(type){
-
-        default:
-            throw new Exception("not covered viewpoint");
-        }
+        views[type.ordinal()][version.ordinal()] = view;     
     }
 
     @Override
-    public void addAnComponent(ViewType type, ArchitectureElement ae) throws Exception {
-        // TODO Auto-generated method stub
-        switch(type){
+    public void addAnComponent(ViewType type, ViewVesion version,  ArchitectureElement ae){
         
-        default:
-            throw new Exception("not covered viewpoint");
-        }
-        
+        views[type.ordinal()][version.ordinal()].addComponent(ae);
     }
 
     @Override
-    public void addAnConnector(ViewType type, Relation r) throws Exception {
-        // TODO Auto-generated method stub
-        switch(type){
-        
-        default:
-            throw new Exception("not covered viewpoint");
-        }
-        
-    }
+    public void addAnConnector(ViewType type, ViewVesion version,  Relation r){
 
+        views[type.ordinal()][version.ordinal()].addConnector(r);
+       
+    }
+    
+
+    
+    
+    
+    
+    
     @Override
     public String overallInformation() {
         // TODO Auto-generated method stub
@@ -67,12 +57,17 @@ public class Architecture implements IArchitecture{
     }
 
     @Override
-    public void addTracebilityLink(ViewType source, ViewType dest)
-            throws Exception {
+    public void addTracebilityLink(ViewType source, ViewType dest){
         // TODO Auto-generated method stub
         
     }
-    
+
+    @Override
+    public View getView(ViewType type, ViewVesion vesion) {
+        // TODO Auto-generated method stub
+        return views[type.ordinal()][vesion.ordinal()];
+    }
+
 
 
 }

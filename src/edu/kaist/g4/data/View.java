@@ -1,5 +1,7 @@
 package edu.kaist.g4.data;
 
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Vector;
 
@@ -21,41 +23,62 @@ import java.util.Vector;
  */
 
 enum ViewType { CNC, MODULE };
+enum ViewVesion { WORKING, RECNENT };
 
 public class View {
     
     private Architecture architecture; 
-    private String id;
+ 
     
-    private Vector<ArchitectureElement> components;
-    private Vector<Relation> connectors;
+    private HashMap<String, ArchitectureElement> elements;
+    private Vector<Relation> relations;
     private ViewType type;
+    private ViewVesion vesion;
     
-    
-    public View(Architecture architecture, ViewType viewtype){
-        components = new Vector<ArchitectureElement>();
-        connectors = new Vector<Relation>();
+    public View(Architecture architecture, ViewType viewtype, ViewVesion vesion){
+        elements = new HashMap<String, ArchitectureElement>();
+        relations = new Vector<Relation>();
         
         architecture = this.architecture;
-        type = viewtype;
+        this.type = viewtype;
+        this.vesion = vesion;
         
-        id = "testid" + type.toString();
     }
     
     public void addComponent(ArchitectureElement component){
-        components.add(component);
+        elements.put(component.getId(),component);
     }
     
     public void addConnector(Relation connector){
-        connectors.add(connector);
+        relations.add(connector);
     }
     
-    public Iterator<ArchitectureElement> componentIterator(){
-        return components.iterator();
+    public  Collection<ArchitectureElement> getelements(){
+        return elements.values();
+    }
+    
+    public ArchitectureElement serachElementByID(String ID){
+        return elements.get(ID);
     }
     
     public Iterator<Relation> connectorIterator(){
-        return connectors.iterator();
+        return relations.iterator();
+    }
+
+    public ViewType getType() {
+        return type;
+    }
+
+    public void setType(ViewType type) {
+        this.type = type;
+    }
+
+    public ViewVesion getVesion() {
+        return vesion;
+    }
+
+    public void setVesion(ViewVesion vesion) {
+        this.vesion = vesion;
     }
     
 }
