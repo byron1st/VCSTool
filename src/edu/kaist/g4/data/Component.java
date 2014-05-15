@@ -1,4 +1,4 @@
-package ArchitectureRepositoryLayer.DataLayer;
+package edu.kaist.g4.data;
 
 import java.util.HashMap;
 
@@ -6,20 +6,19 @@ import java.util.HashMap;
  * 
  * @author Junhaeng Heo
  *
- *  Connector contains Attributes
+ *  Component contains Attributes
  */
 
-public class Connector {
+public class Component {
     
     private String id;
     private HashMap<String,String> attributes;
 
-    public Connector(String id){
-        id = this.id;
+    public Component(String id){
+        this.id = id;
         attributes = new HashMap<String,String>();
-        
     }
-
+    
     public void addAttribute(String key, String value){
         attributes.put(key, value);
     }
@@ -32,5 +31,4 @@ public class Connector {
         return attributes;
     }
     
-
 }

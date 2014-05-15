@@ -1,4 +1,4 @@
-package ArchitectureRepositoryLayer.DataLayer;
+package edu.kaist.g4.data;
 
 import java.util.Vector;
 
