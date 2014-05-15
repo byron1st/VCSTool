@@ -1,5 +1,6 @@
 package ArchitectureRepositoryLayer.DataLayer;
 
+import java.util.Iterator;
 import java.util.Vector;
 
 /**
@@ -19,14 +20,42 @@ import java.util.Vector;
  *           
  */
 
+enum ViewType { CNC, MODULE };
+
 public class View {
-   
-    Vector<Component> components;
-    Vector<Connector> connector;
     
-    public View(String viewpoint){
+    private Architecture architecture; 
+    private String id;
+    
+    private Vector<Component> components;
+    private Vector<Connector> connectors;
+    private ViewType type;
+    
+    
+    public View(Architecture architecture, ViewType viewtype){
         components = new Vector<Component>();
-        connector = new Vector<Connector>();
+        connectors = new Vector<Connector>();
+        
+        architecture = this.architecture;
+        type = viewtype;
+        
+        id = "testid" + type.toString();
+    }
+    
+    public void addComponent(Component component){
+        components.add(component);
+    }
+    
+    public void addConnector(Connector connector){
+        connectors.add(connector);
+    }
+    
+    public Iterator<Component> componentIterator(){
+        return components.iterator();
+    }
+    
+    public Iterator<Connector> connectorIterator(){
+        return connectors.iterator();
     }
     
 }

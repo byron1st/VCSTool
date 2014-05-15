@@ -1,6 +1,6 @@
 package ArchitectureRepositoryLayer.DataLayer;
 
-import java.util.Vector;
+import java.util.HashMap;
 
 /**
  * 
@@ -11,10 +11,24 @@ import java.util.Vector;
 
 public class Component {
     
-    Vector<Attribute> attributes;
+    private String id;
+    private HashMap<String,String> attributes;
 
-    public Component(String s){
-        attributes = new Vector<Attribute>();
+    public Component(String id){
+        this.id = id;
+        attributes = new HashMap<String,String>();
+    }
+    
+    public void addAttribute(String key, String value){
+        attributes.put(key, value);
+    }
+    
+    public String getID(){
+        return id;
+    }
+    
+    public HashMap<String,String> getAttributes(){
+        return attributes;
     }
     
 }

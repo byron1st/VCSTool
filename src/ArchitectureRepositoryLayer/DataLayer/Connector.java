@@ -1,6 +1,6 @@
 package ArchitectureRepositoryLayer.DataLayer;
 
-import java.util.Vector;
+import java.util.HashMap;
 
 /**
  * 
@@ -11,10 +11,26 @@ import java.util.Vector;
 
 public class Connector {
     
-    Vector<Attribute> attributes;
-    
-    public Connector(String s){
-        attributes = new Vector<Attribute>();
+    private String id;
+    private HashMap<String,String> attributes;
+
+    public Connector(String id){
+        id = this.id;
+        attributes = new HashMap<String,String>();
+        
     }
+
+    public void addAttribute(String key, String value){
+        attributes.put(key, value);
+    }
+    
+    public String getID(){
+        return id;
+    }
+    
+    public HashMap<String,String> getAttributes(){
+        return attributes;
+    }
+    
 
 }
