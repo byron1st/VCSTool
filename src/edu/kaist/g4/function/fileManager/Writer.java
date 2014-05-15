@@ -23,3 +23,4 @@ public class Writer extends DefaultHandler{
         parsingRule.executeRule(architecture, qName, attributes);
     }
 }
+ 
