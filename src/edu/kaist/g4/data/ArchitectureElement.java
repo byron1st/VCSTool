@@ -9,12 +9,12 @@ import java.util.HashMap;
  *  Component contains Attributes
  */
 
-public class Component {
+public class ArchitectureElement {
     
     private String id;
     private HashMap<String,String> attributes;
 
-    public Component(String id){
+    public ArchitectureElement(String id){
         this.id = id;
         attributes = new HashMap<String,String>();
     }

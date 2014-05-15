@@ -7,9 +7,16 @@ package edu.kaist.g4.data;
  */
 
 public interface IArchitecture {
-
-    public void createAnArchitecturalElement(String s) throws Exception;
-    public void addAnArchitecturalElement(String s) throws Exception;
-    public void addAnRelation(String s) throws Exception;
+    
+    //init architecture object
+    public void addView(ViewType type, View view) throws Exception;
+    public void addAnComponent(ViewType type, ArchitectureElement ae) throws Exception;
+    public void addAnConnector(ViewType type, Relation r) throws Exception;
+    
+    public void addTracebilityLink(ViewType source, ViewType dest) throws Exception;
+    
+    //get information of architecture
+    public String overallInformation();
+    
     
 }
