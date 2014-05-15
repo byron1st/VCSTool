@@ -9,12 +9,12 @@ import java.util.HashMap;
  *  Connector contains Attributes
  */
 
-public class Connector {
+public class Relation {
     
     private String id;
     private HashMap<String,String> attributes;
 
-    public Connector(String id){
+    public Relation(String id){
         id = this.id;
         attributes = new HashMap<String,String>();
         

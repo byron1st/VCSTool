@@ -27,14 +27,14 @@ public class View {
     private Architecture architecture; 
     private String id;
     
-    private Vector<Component> components;
-    private Vector<Connector> connectors;
+    private Vector<ArchitectureElement> components;
+    private Vector<Relation> connectors;
     private ViewType type;
     
     
     public View(Architecture architecture, ViewType viewtype){
-        components = new Vector<Component>();
-        connectors = new Vector<Connector>();
+        components = new Vector<ArchitectureElement>();
+        connectors = new Vector<Relation>();
         
         architecture = this.architecture;
         type = viewtype;
@@ -42,19 +42,19 @@ public class View {
         id = "testid" + type.toString();
     }
     
-    public void addComponent(Component component){
+    public void addComponent(ArchitectureElement component){
         components.add(component);
     }
     
-    public void addConnector(Connector connector){
+    public void addConnector(Relation connector){
         connectors.add(connector);
     }
     
-    public Iterator<Component> componentIterator(){
+    public Iterator<ArchitectureElement> componentIterator(){
         return components.iterator();
     }
     
-    public Iterator<Connector> connectorIterator(){
+    public Iterator<Relation> connectorIterator(){
         return connectors.iterator();
     }
     
