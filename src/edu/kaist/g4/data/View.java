@@ -33,6 +33,14 @@ public class View {
     private Vector<Relation> relations;
     private ViewType type;
     
+    public View(String name, ViewType viewtype){
+        elements = new HashMap<String, ArchitectureElement>();
+        relations = new Vector<Relation>();
+        
+        this.type = viewtype;
+        
+    }
+    
     public View(Architecture architecture, String name, ViewType viewtype){
         elements = new HashMap<String, ArchitectureElement>();
         relations = new Vector<Relation>();
