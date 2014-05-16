@@ -26,7 +26,7 @@ public class Architecture implements IArchitecture{
     }
 
     @Override
-    public void addView(ViewType type, ViewVesion version, View view){
+    public void setView(ViewType type, ViewVesion version, View view){
 
         views[type.ordinal()][version.ordinal()] = view;     
     }

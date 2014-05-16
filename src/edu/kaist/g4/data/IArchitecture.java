@@ -9,7 +9,7 @@ package edu.kaist.g4.data;
 public interface IArchitecture {
     
     //init architecture object
-    public void addView(ViewType type, ViewVesion version, View view);
+    public void setView(ViewType type, ViewVesion version, View view);
     public void addAnComponent(ViewType type, ViewVesion version, ArchitectureElement ae);
     public void addAnConnector(ViewType type, ViewVesion version, Relation r);
     
