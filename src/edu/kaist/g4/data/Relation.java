@@ -9,7 +9,7 @@ import java.util.HashMap;
  *  Connector contains Attributes
  */
 
-enum RelationType { RELATION, USE }
+
 
 public class Relation {
     

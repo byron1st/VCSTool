@@ -22,7 +22,7 @@ import java.util.Vector;
  *           
  */
 
-enum ViewType { CNC, MODULE };
+
 
 public class View {
     
@@ -33,7 +33,7 @@ public class View {
     private Vector<Relation> relations;
     private ViewType type;
     
-    public View(String name, ViewType viewtype){
+    public View(ViewType viewtype){
         elements = new HashMap<String, ArchitectureElement>();
         relations = new Vector<Relation>();
         

@@ -10,8 +10,6 @@ import java.util.Vector;
  *  Component contains Attributes
  */
 
-enum ElementType {COMPONENT, CONNECTOR, MODULE};
-
 public class ArchitectureElement {
     
     private String name;

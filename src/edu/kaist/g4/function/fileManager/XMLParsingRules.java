@@ -4,29 +4,45 @@ import java.util.ArrayList;
 
 import org.xml.sax.Attributes;
 
+import edu.kaist.g4.data.ElementType;
+import edu.kaist.g4.data.RelationType;
+import edu.kaist.g4.data.ViewType;
+
 public class XMLParsingRules{
 
     
-    public void executeRule(Architecture_XML architecture, String qName, Attributes attributes){
-        if (qName.equals("UML:Class") && attributes.getValue("visibility") != null) {
-            ArrayList<String> list = new ArrayList<String>();
-            list.add("Class");
+    public void executeRule(View_XML viewXML, String qName, Attributes attributes){
+        if (qName.equals("XMI")){
+            viewXML.id = attributes.getValue("timestamp");
+        }
+        else if(qName.equals("UML:Package")){
+            String type = attributes.getValue("name");
+            if(type.equals("Class Model")){
+                viewXML.type = ViewType.MODULE;
+            }
+            else if(type.equals("Component Model")){
+                viewXML.type = ViewType.CNC;
+            }
+        }
+        else if(qName.equals("UML:Class") && attributes.getValue("visibility") != null) {
+            ArrayList<Object> list = new ArrayList<Object>();
+            list.add(ElementType.MODULE);
             list.add(attributes.getValue("name"));
-            architecture.elements.put(attributes.getValue("xmi.id"), list);
+            viewXML.elements.put(attributes.getValue("xmi.id"), list);
         }
         else if(qName.equals("UML:Generalization")){
-            ArrayList<String> list = new ArrayList<String>();
-            list.add("Generalization");
+            ArrayList<Object> list = new ArrayList<Object>();
+            list.add(RelationType.GENERALIZATION);
             list.add(attributes.getValue("subtype"));
             list.add(attributes.getValue("supertype"));
-            architecture.relations.put(attributes.getValue("xmi.id"), list);
+            viewXML.relations.put(attributes.getValue("xmi.id"), list);
         }
         else if(qName.equals("UML:Dependency")){
-            ArrayList<String> list = new ArrayList<String>();
-            list.add("Dependency");
+            ArrayList<Object> list = new ArrayList<Object>();
+            list.add(RelationType.DEPENDENCY);
             list.add(attributes.getValue("client"));
             list.add(attributes.getValue("supplier"));
-            architecture.relations.put(attributes.getValue("xmi.id"), list);
+            viewXML.relations.put(attributes.getValue("xmi.id"), list);
         }
     }
 }
