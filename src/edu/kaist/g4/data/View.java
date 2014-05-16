@@ -23,25 +23,22 @@ import java.util.Vector;
  */
 
 enum ViewType { CNC, MODULE };
-enum ViewVesion { WORKING, RECNENT };
 
 public class View {
     
     private Architecture architecture; 
  
-    
+    private String name;
     private HashMap<String, ArchitectureElement> elements;
     private Vector<Relation> relations;
     private ViewType type;
-    private ViewVesion vesion;
     
-    public View(Architecture architecture, ViewType viewtype, ViewVesion vesion){
+    public View(Architecture architecture, String name, ViewType viewtype){
         elements = new HashMap<String, ArchitectureElement>();
         relations = new Vector<Relation>();
         
         architecture = this.architecture;
         this.type = viewtype;
-        this.vesion = vesion;
         
     }
     
@@ -73,12 +70,37 @@ public class View {
         this.type = type;
     }
 
-    public ViewVesion getVesion() {
-        return vesion;
+    public Architecture getArchitecture() {
+        return architecture;
     }
 
-    public void setVesion(ViewVesion vesion) {
-        this.vesion = vesion;
+    public void setArchitecture(Architecture architecture) {
+        this.architecture = architecture;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public HashMap<String, ArchitectureElement> getElements() {
+        return elements;
+    }
+
+    public void setElements(HashMap<String, ArchitectureElement> elements) {
+        this.elements = elements;
+    }
+
+    public Vector<Relation> getRelations() {
+        return relations;
+    }
+
+    public void setRelations(Vector<Relation> relations) {
+        this.relations = relations;
     }
     
+
 }

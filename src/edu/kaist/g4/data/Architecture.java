@@ -1,6 +1,8 @@
 package edu.kaist.g4.data;
 
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Vector;
 
 /**
  * 
@@ -13,12 +15,15 @@ public class Architecture implements IArchitecture{
 
     protected String archname, id;
 
-    protected View[][] views;
+    protected Vector<View>[] views;
     protected HashMap<String, TraceabilityLink> tLinks;
     
     //객체생성을 언제, 어떻게
     public Architecture(String archname){
-        views = new View[ViewType.values().length][2];  //recnentArchitecture, workingArchitecture
+        views = new Vector[ViewType.values().length];
+        for(int i=0;i<views.length;i++){
+            views[i] = new Vector<View>();
+        }
         tLinks = new HashMap<String, TraceabilityLink>();
         
         id = archname + System.currentTimeMillis();
@@ -26,21 +31,33 @@ public class Architecture implements IArchitecture{
     }
 
     @Override
-    public void setView(ViewType type, ViewVesion version, View view){
+    public void addView(ViewType type, View view){
 
-        views[type.ordinal()][version.ordinal()] = view;     
+        views[type.ordinal()].add(view);     
     }
 
     @Override
-    public void addAnComponent(ViewType type, ViewVesion version,  ArchitectureElement ae){
+    public void addAnComponent(ViewType type, String name, ArchitectureElement ae){
         
-        views[type.ordinal()][version.ordinal()].addComponent(ae);
+        Iterator<View> it = views[type.ordinal()].iterator();
+        View el;
+        while(it.hasNext()){
+            el = it.next();
+            if(el.getName().equals(name))
+                el.addComponent(ae);                
+        }
     }
 
     @Override
-    public void addAnConnector(ViewType type, ViewVesion version,  Relation r){
+    public void addAnConnector(ViewType type, String name, Relation r){
 
-        views[type.ordinal()][version.ordinal()].addConnector(r);
+        Iterator<View> it = views[type.ordinal()].iterator();
+        View el;
+        while(it.hasNext()){
+            el = it.next();
+            if(el.getName().equals(name))
+                el.addConnector(r);                
+        }
        
     }
     
@@ -63,9 +80,16 @@ public class Architecture implements IArchitecture{
     }
 
     @Override
-    public View getView(ViewType type, ViewVesion vesion) {
-        // TODO Auto-generated method stub
-        return views[type.ordinal()][vesion.ordinal()];
+    public View getView(ViewType type, String name) {
+
+        Iterator<View> it = views[type.ordinal()].iterator();
+        View el;
+        while(it.hasNext()){
+            el = it.next();
+            if(el.getName().equals(name))
+                return el;                
+        }
+        return null;
     }
 
 

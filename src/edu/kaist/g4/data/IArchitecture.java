@@ -9,11 +9,11 @@ package edu.kaist.g4.data;
 public interface IArchitecture {
     
     //init architecture object
-    public void setView(ViewType type, ViewVesion version, View view);
-    public void addAnComponent(ViewType type, ViewVesion version, ArchitectureElement ae);
-    public void addAnConnector(ViewType type, ViewVesion version, Relation r);
+    public void addView(ViewType type, View view);
+    public void addAnComponent(ViewType type,String name, ArchitectureElement ae);
+    public void addAnConnector(ViewType type,String name, Relation r);
     
-    public View getView(ViewType type, ViewVesion vesion);
+    public View getView(ViewType type,String name);
     
     public void addTracebilityLink(ViewType source, ViewType dest);
 
