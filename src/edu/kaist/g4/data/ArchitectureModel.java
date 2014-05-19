@@ -29,6 +29,7 @@ public class ArchitectureModel {
     private Architecture architecture; 
  
     private String name;
+    private String id;
     private HashMap<String, ArchitectureElement> elements;
     private Vector<Relation> relations;
     private ViewType type;
