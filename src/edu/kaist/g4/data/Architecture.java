@@ -15,14 +15,14 @@ public class Architecture implements IArchitecture{
 
     protected String archname, id;
 
-    protected Vector<View>[] views;
+    protected Vector<ArchitectureModel>[] views;
     protected HashMap<String, TraceabilityLink> tLinks;
     
     //객체생성을 언제, 어떻게
     public Architecture(String archname){
         views = new Vector[ViewType.values().length];
         for(int i=0;i<views.length;i++){
-            views[i] = new Vector<View>();
+            views[i] = new Vector<ArchitectureModel>();
         }
         tLinks = new HashMap<String, TraceabilityLink>();
         
@@ -31,7 +31,7 @@ public class Architecture implements IArchitecture{
     }
 
     @Override
-    public void addView(ViewType type, View view){
+    public void addView(ViewType type, ArchitectureModel view){
 
         views[type.ordinal()].add(view);     
     }
@@ -39,8 +39,8 @@ public class Architecture implements IArchitecture{
     @Override
     public void addAnComponent(ViewType type, String name, ArchitectureElement ae){
         
-        Iterator<View> it = views[type.ordinal()].iterator();
-        View el;
+        Iterator<ArchitectureModel> it = views[type.ordinal()].iterator();
+        ArchitectureModel el;
         while(it.hasNext()){
             el = it.next();
             if(el.getName().equals(name))
@@ -51,8 +51,8 @@ public class Architecture implements IArchitecture{
     @Override
     public void addAnConnector(ViewType type, String name, Relation r){
 
-        Iterator<View> it = views[type.ordinal()].iterator();
-        View el;
+        Iterator<ArchitectureModel> it = views[type.ordinal()].iterator();
+        ArchitectureModel el;
         while(it.hasNext()){
             el = it.next();
             if(el.getName().equals(name))
@@ -80,10 +80,10 @@ public class Architecture implements IArchitecture{
     }
 
     @Override
-    public View getView(ViewType type, String name) {
+    public ArchitectureModel getView(ViewType type, String name) {
 
-        Iterator<View> it = views[type.ordinal()].iterator();
-        View el;
+        Iterator<ArchitectureModel> it = views[type.ordinal()].iterator();
+        ArchitectureModel el;
         while(it.hasNext()){
             el = it.next();
             if(el.getName().equals(name))

@@ -13,21 +13,21 @@ import edu.kaist.g4.data.ArchitectureElement;
 import edu.kaist.g4.data.ElementType;
 import edu.kaist.g4.data.Relation;
 import edu.kaist.g4.data.RelationType;
-import edu.kaist.g4.data.View;
+import edu.kaist.g4.data.ArchitectureModel;
 
 public class Reader extends DefaultHandler{
     View_XML viewXML;
     Architecture arch;
     XMLParsingRules parsingRule;
-    View v;
+    ArchitectureModel v;
     
     public Reader(){
         
     }
-    public Architecture makeArchitecture(){        
-        arch = new Architecture(viewXML.id);
-        v = new View(viewXML.type);
-//        for(...)
+
+    public Architecture makeArchitecture(){
+        v = new ArchitectureModel(viewXML.type);
+
         ArchitectureElement ae = new ArchitectureElement();
         Set<String> elementSet = viewXML.elements.keySet();
         for(String str : elementSet){
