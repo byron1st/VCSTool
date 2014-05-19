@@ -1,6 +1,7 @@
 package edu.kaist.g4.function.fileManager;
 
 import edu.kaist.g4.data.Architecture;
+import edu.kaist.g4.data.architecturalDifferentiations.ArchitecturalDifferentiations;
 
 public class FileManager implements IFileManager{
     
@@ -16,6 +17,19 @@ public class FileManager implements IFileManager{
     public Architecture readRecentArchitecture() {
         // TODO 만들어줘!! by 휘. ~(-_ -)~
         return null;
+    }
+
+    @Override
+    public void writeNewRecentArchitecture(Architecture workingArchitecture) {
+        // TODO 만들어줘!! by 휘. ~(-_ -)~
+        
+    }
+
+    @Override
+    public void appendDiffList(
+            ArchitecturalDifferentiations addedArchitecturalDifferentiations) {
+        // TODO 만들어줘!! by 휘. ~(-_ -)~
+        
     }
 
 }

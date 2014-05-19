@@ -1,6 +1,7 @@
 package edu.kaist.g4.function.fileManager;
 
 import edu.kaist.g4.data.Architecture;
+import edu.kaist.g4.data.architecturalDifferentiations.ArchitecturalDifferentiations;
 
 public interface IFileManager {
     /**
@@ -20,4 +21,21 @@ public interface IFileManager {
      * @return
      */
     public Architecture readRecentArchitecture();
+    
+    /**
+     * @Method Name : writeNewRecentArchitecture
+     * @Detail      : 가장 최근 Architecture를 recent architecture로 업데이트하는 함수. 
+     *
+     * @param workingArchitecture
+     */
+    public void writeNewRecentArchitecture(Architecture workingArchitecture);
+    
+    /**
+     * @Method Name : appendDiffList
+     * @Detail      : 새롭게 추가된 differentiations 정보를 기존 differentiations 정보를 기록해둔 log에 append하는 함수.
+     *                TODO: 현재는 Architecture Change만 있고 Architecture Change Decision은 없음. (null로 처리됨.)
+     *
+     * @param addedArchitecturalDifferentiations
+     */
+    public void appendDiffList(ArchitecturalDifferentiations addedArchitecturalDifferentiations);
 }
