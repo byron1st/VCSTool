@@ -22,9 +22,10 @@ public class Reader extends DefaultHandler{
     View v;
     
     public Reader(){
-        arch = new Architecture(viewXML.id);
+        
     }
-    public Architecture makeArchitecture(){
+    public Architecture makeArchitecture(){        
+        arch = new Architecture(viewXML.id);
         v = new View(viewXML.type);
 //        for(...)
         ArchitectureElement ae = new ArchitectureElement();
