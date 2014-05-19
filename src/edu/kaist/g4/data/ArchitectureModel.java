@@ -110,6 +110,15 @@ public class ArchitectureModel {
     public void setRelations(Vector<Relation> relations) {
         this.relations = relations;
     }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+    
     
 
 }
