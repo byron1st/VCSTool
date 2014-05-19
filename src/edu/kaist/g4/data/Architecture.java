@@ -92,6 +92,12 @@ public class Architecture implements IArchitecture{
         return null;
     }
 
+    @Override
+    public Vector<ArchitectureModel> getArchitectureModels() {
+        // TODO 만들어줘!!!
+        return null;
+    }
+
 
 
 }

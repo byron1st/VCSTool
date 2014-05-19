@@ -1,5 +1,7 @@
 package edu.kaist.g4.data;
 
+import java.util.Vector;
+
 /**
  * 
  * @author Junhaeng Heo
@@ -20,5 +22,11 @@ public interface IArchitecture {
     //get information of architecture
     public String overallInformation();
     
-    
+    /**
+     * @Method Name : getArchitectureModels
+     * @Detail      : 해당 Architecture에 있는 Architecture Model들의 리스트를 리턴하는 함수.
+     *
+     * @return
+     */
+    public Vector<ArchitectureModel> getArchitectureModels();
 }
