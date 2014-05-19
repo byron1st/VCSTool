@@ -16,7 +16,28 @@ public class ArchitecturalDifferentiations implements IArchitecturalDifferentiat
     private Vector<ArchitectureChange> architectureChanges = new Vector<ArchitectureChange>();
     private Vector<ArchitectureChangeDecision> architectureChangeDecision = new Vector<ArchitectureChangeDecision>();
     
+    public ArchitecturalDifferentiations(Vector<ArchitectureChangeDecision> architectureChangeDecisions,
+            Vector<ArchitectureChange> architectureChanges) {
+        this.architectureChangeDecision = architectureChangeDecisions;
+        this.architectureChanges = architectureChanges;
+        
+    }
+
+    public Vector<ArchitectureChange> getArchitectureChanges() {
+        return architectureChanges;
+    }
     
+    public void setArchitectureChanges(
+            Vector<ArchitectureChange> architectureChanges) {
+        this.architectureChanges = architectureChanges;
+    }
     
+    public Vector<ArchitectureChangeDecision> getArchitectureChangeDecision() {
+        return architectureChangeDecision;
+    }
     
+    public void setArchitectureChangeDecision(
+            Vector<ArchitectureChangeDecision> architectureChangeDecision) {
+        this.architectureChangeDecision = architectureChangeDecision;
+    }
 }
