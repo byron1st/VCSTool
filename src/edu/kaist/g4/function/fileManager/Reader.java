@@ -22,7 +22,7 @@ public class Reader extends DefaultHandler{
     ArchitectureModel v;
     
     public Reader(){
-        
+        arch = new Architecture("aa");
     }
 
     public Architecture makeArchitecture(){
@@ -57,6 +57,9 @@ public class Reader extends DefaultHandler{
     
     public View_XML getParsedData(){
         return viewXML;
+    }
+    public Architecture getArchitecture(){
+        return arch;
     }
     
     @Override  

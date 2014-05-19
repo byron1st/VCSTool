@@ -22,27 +22,45 @@ public class FileManager implements IFileManager{
     }
 
     @Override
-    public Architecture readWorkingArchitecture(String filePath) {
-        return null;
+    public Architecture readWorkingArchitecture(String filePath) {  //dir path??
+        try{
+            File file = new File(filePath);
+            File[] listFiles = file.listFiles();
+            for(File f : listFiles){   
+                SAXParserFactory spf = SAXParserFactory.newInstance();  
+                SAXParser sp = spf.newSAXParser();  
+                XMLReader xr = sp.getXMLReader();  
+                    
+                xr.setContentHandler(reader);  
+        
+                xr.parse(new InputSource(new FileInputStream(f)));
+                reader.makeArchitecture();
+            }
+        } catch (Exception e) {  
+            e.printStackTrace();  
+        }
+        return reader.getArchitecture();
     }
 
     @Override
     public Architecture readRecentArchitecture() {
         try{
-            File file = new File("Tool Input_Module View XMI 1.1.xml");   
-            
-            SAXParserFactory spf = SAXParserFactory.newInstance();  
-            SAXParser sp = spf.newSAXParser();  
-            XMLReader xr = sp.getXMLReader();  
-                
-            xr.setContentHandler(reader);  
-    
-            xr.parse(new InputSource(new FileInputStream(file)));
-            reader.makeArchitecture();
+            File file = new File("version1.0");
+            File[] listFiles = file.listFiles();
+            for(File f : listFiles){   
+                SAXParserFactory spf = SAXParserFactory.newInstance();  
+                SAXParser sp = spf.newSAXParser();  
+                XMLReader xr = sp.getXMLReader();  
+                    
+                xr.setContentHandler(reader);  
+        
+                xr.parse(new InputSource(new FileInputStream(f)));
+                reader.makeArchitecture();
+            }
         } catch (Exception e) {  
             e.printStackTrace();  
-        }  
-        return null;
+        }
+        return reader.getArchitecture();
     }
 
     @Override

@@ -24,6 +24,7 @@ public class XMLParsingRules{
                 viewXML.type = ViewType.CNC;
             }
         }
+        //Class Model(Module View)
         else if(qName.equals("UML:Class") && attributes.getValue("visibility") != null) {
             ArrayList<Object> list = new ArrayList<Object>();
             list.add(ElementType.MODULE);
@@ -40,6 +41,26 @@ public class XMLParsingRules{
         else if(qName.equals("UML:Dependency")){
             ArrayList<Object> list = new ArrayList<Object>();
             list.add(RelationType.DEPENDENCY);
+            list.add(attributes.getValue("client"));
+            list.add(attributes.getValue("supplier"));
+            viewXML.relations.put(attributes.getValue("xmi.id"), list);
+        }
+        //Component Model(CNC View)
+        else if(qName.equals("UML:Component")){
+            ArrayList<Object> list = new ArrayList<Object>();
+            list.add(ElementType.COMPONENT);
+            list.add(attributes.getValue("name"));
+            viewXML.elements.put(attributes.getValue("xmi.id"), list);
+        }
+        else if(qName.equals("UML:Connector")){
+            ArrayList<Object> list = new ArrayList<Object>();
+            list.add(ElementType.CONNECTOR);
+            list.add(attributes.getValue("name"));
+            viewXML.elements.put(attributes.getValue("xmi.id"), list);
+        }
+        else if(qName.equals("UML:Association")){
+            ArrayList<Object> list = new ArrayList<Object>();
+            list.add(RelationType.RELATION);
             list.add(attributes.getValue("client"));
             list.add(attributes.getValue("supplier"));
             viewXML.relations.put(attributes.getValue("xmi.id"), list);
