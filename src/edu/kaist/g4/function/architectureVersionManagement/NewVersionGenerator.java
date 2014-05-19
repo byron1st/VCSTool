@@ -1,6 +1,9 @@
 package edu.kaist.g4.function.architectureVersionManagement;
 
+import java.util.Vector;
+
 import edu.kaist.g4.data.Architecture;
+import edu.kaist.g4.data.architecturalDifferentiations.ArchitectureChange;
 
 /**
  * 
@@ -14,14 +17,14 @@ import edu.kaist.g4.data.Architecture;
 public class NewVersionGenerator implements INewVersionGenerator {
     
     
-    public NewVersionGenerator(Architecture workingArchitecture, Architecture currentArchitecture) {
+    public NewVersionGenerator(Architecture workingArchitecture, Architecture recentArchitecture) {
         
     }
     
     @Override
-    public void buildNewVersion() {
+    public Vector<ArchitectureChange> buildNewVersion() {
         // TODO Auto-generated method stub
-        
+        return null;
     }
 
 }
