@@ -24,7 +24,7 @@ import java.util.Vector;
 
 
 
-public class View {
+public class ArchitectureModel {
     
     private Architecture architecture; 
  
@@ -33,7 +33,7 @@ public class View {
     private Vector<Relation> relations;
     private ViewType type;
     
-    public View(ViewType viewtype){
+    public ArchitectureModel(ViewType viewtype){
         elements = new HashMap<String, ArchitectureElement>();
         relations = new Vector<Relation>();
         
@@ -41,7 +41,7 @@ public class View {
         
     }
     
-    public View(Architecture architecture, String name, ViewType viewtype){
+    public ArchitectureModel(Architecture architecture, String name, ViewType viewtype){
         elements = new HashMap<String, ArchitectureElement>();
         relations = new Vector<Relation>();
         
