@@ -1,5 +1,7 @@
 package edu.kaist.g4.data.architecturalDifferentiations;
 
+import java.util.Vector;
+
 /**
  * 
  * @FileName : ArchitectureChangeDecision.java
@@ -10,5 +12,24 @@ package edu.kaist.g4.data.architecturalDifferentiations;
  * 
  */
 public class ArchitectureChangeDecision {
-
+    private String architectureChangeDrivers;
+    private Vector<ArchitectureChange> architectureChanges = new Vector<ArchitectureChange>();
+    
+    public String getArchitectureChangeDrivers() {
+        return architectureChangeDrivers;
+    }
+    
+    public void setArchitectureChangeDrivers(String architectureChangeDrivers) {
+        this.architectureChangeDrivers = architectureChangeDrivers;
+    }
+    
+    public Vector<ArchitectureChange> getArchitectureChanges() {
+        return architectureChanges;
+    }
+    
+    public void setArchitectureChanges(
+            Vector<ArchitectureChange> architectureChanges) {
+        this.architectureChanges = architectureChanges;
+    }
+    
 }

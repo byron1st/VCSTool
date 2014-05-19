@@ -1,5 +1,7 @@
 package edu.kaist.g4.data.architecturalDifferentiations;
 
+import java.util.Vector;
+
 /**
  * 
  * @FileName : ArchitecturalDifferentiations.java
@@ -10,5 +12,11 @@ package edu.kaist.g4.data.architecturalDifferentiations;
  * 
  */
 public class ArchitecturalDifferentiations implements IArchitecturalDifferentiations {
-
+    
+    private Vector<ArchitectureChange> architectureChanges = new Vector<ArchitectureChange>();
+    private Vector<ArchitectureChangeDecision> architectureChangeDecision = new Vector<ArchitectureChangeDecision>();
+    
+    
+    
+    
 }
