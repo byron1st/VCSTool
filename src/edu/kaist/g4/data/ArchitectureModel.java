@@ -26,8 +26,6 @@ import java.util.Vector;
 
 public class ArchitectureModel {
     
-    private Architecture architecture; 
- 
     private String name;
     private String id;
     private HashMap<String, ArchitectureElement> elements;
@@ -42,25 +40,21 @@ public class ArchitectureModel {
         
     }
     
-    public ArchitectureModel(Architecture architecture, String name, ViewType viewtype){
+    public ArchitectureModel(String filename, ViewType viewtype){
         elements = new HashMap<String, ArchitectureElement>();
         relations = new Vector<Relation>();
-        
-        architecture = this.architecture;
+
+        id = name;
         this.type = viewtype;
         
     }
     
-    public void addComponent(ArchitectureElement component){
-        elements.put(component.getId(),component);
+    public void addArchitectureElement(ArchitectureElement ae){
+        elements.put(ae.getId(),ae);
     }
     
-    public void addConnector(Relation connector){
-        relations.add(connector);
-    }
-    
-    public  Collection<ArchitectureElement> getelements(){
-        return elements.values();
+    public void addRelation(Relation r){
+        relations.add(r);
     }
     
     public ArchitectureElement serachElementByID(String ID){
@@ -77,14 +71,6 @@ public class ArchitectureModel {
 
     public void setType(ViewType type) {
         this.type = type;
-    }
-
-    public Architecture getArchitecture() {
-        return architecture;
-    }
-
-    public void setArchitecture(Architecture architecture) {
-        this.architecture = architecture;
     }
 
     public String getName() {
