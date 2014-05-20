@@ -28,9 +28,10 @@ public class Reader extends DefaultHandler{
     public Architecture addArchitectureModel(){
         v = new ArchitectureModel(viewXML.type);
 
-        ArchitectureElement ae = new ArchitectureElement();
+        //elements
         Set<String> elementSet = viewXML.elements.keySet();
         for(String str : elementSet){
+            ArchitectureElement ae = new ArchitectureElement();
             ArrayList<Object> list = viewXML.elements.get(str);
             ae.setId(str);
             ae.setType((ElementType)list.get(0));
@@ -38,12 +39,13 @@ public class Reader extends DefaultHandler{
             v.addComponent(ae);
         }
         
+        //relations
         Set<String> relationSet = viewXML.relations.keySet();
         for(String str : relationSet){
             ArrayList<Object> list = viewXML.relations.get(str);
             String srcID = (String)list.get(1);
             String dstID = (String)list.get(2);
-            Relation relation = new Relation((RelationType)list.get(0), getElementByID(srcID), getElementByID(dstID)); //type, source, des
+            Relation relation = new Relation((RelationType)list.get(0), getElementByID(srcID), getElementByID(dstID)); //type, source, dst
             v.addConnector(relation);
         }
         
@@ -70,6 +72,6 @@ public class Reader extends DefaultHandler{
 
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
-        parsingRule.executeRule(viewXML, qName, attributes);
+        parsingRule.executeReadRule(viewXML, qName, attributes);
     }
 }
