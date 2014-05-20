@@ -16,9 +16,11 @@ public class FileManager implements IFileManager{
     
     // TODO: Singleton 으로 할 필요가 있을까? Github 이슈 게시판 참조.
     Reader reader;
+    Writer writer;
     
     public FileManager(){
         reader = new Reader();
+        writer = new Writer();
     }
 
     @Override
@@ -34,7 +36,7 @@ public class FileManager implements IFileManager{
                 xr.setContentHandler(reader);  
         
                 xr.parse(new InputSource(new FileInputStream(f)));
-                reader.makeArchitecture();
+                reader.addArchitectureModel();
             }
         } catch (Exception e) {  
             e.printStackTrace();  
@@ -47,15 +49,14 @@ public class FileManager implements IFileManager{
         try{
             File file = new File("version1.0");
             File[] listFiles = file.listFiles();
-            for(File f : listFiles){   
-                SAXParserFactory spf = SAXParserFactory.newInstance();  
-                SAXParser sp = spf.newSAXParser();  
-                XMLReader xr = sp.getXMLReader();  
-                    
-                xr.setContentHandler(reader);  
-        
+            SAXParserFactory spf = SAXParserFactory.newInstance();  
+            SAXParser sp = spf.newSAXParser();  
+            XMLReader xr = sp.getXMLReader();
+            xr.setContentHandler(reader);
+            
+            for(File f : listFiles){     
                 xr.parse(new InputSource(new FileInputStream(f)));
-                reader.makeArchitecture();
+                reader.addArchitectureModel();
             }
         } catch (Exception e) {  
             e.printStackTrace();  
@@ -65,7 +66,7 @@ public class FileManager implements IFileManager{
 
     @Override
     public void writeNewRecentArchitecture(Architecture workingArchitecture) {
-        
+        writer.writeArchitecture(workingArchitecture, "version1.1");
     }
 
     @Override

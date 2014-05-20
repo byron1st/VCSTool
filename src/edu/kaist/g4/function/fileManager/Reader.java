@@ -25,7 +25,7 @@ public class Reader extends DefaultHandler{
         arch = new Architecture("aa");
     }
 
-    public Architecture makeArchitecture(){
+    public Architecture addArchitectureModel(){
         v = new ArchitectureModel(viewXML.type);
 
         ArchitectureElement ae = new ArchitectureElement();
@@ -47,7 +47,7 @@ public class Reader extends DefaultHandler{
             v.addConnector(relation);
         }
         
-        arch.addView(viewXML.type, v);
+        arch.addArchitectureModel(viewXML.type, v);
         return arch;
     }
     public ArchitectureElement getElementByID(String id){
