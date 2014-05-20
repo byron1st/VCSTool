@@ -134,7 +134,7 @@ public class XMLParsingRules{
                 //add element
                 Iterator<ArchitectureElement> archElementIt;
                 Iterator<Relation> relationIt;
-                archElementIt = archModel.getElements().iterator();
+                archElementIt = archModel.getElements().values().iterator();
                 while(archElementIt.hasNext()){
                     ArchitectureElement archElement = (ArchitectureElement)archElementIt.next();
                     
