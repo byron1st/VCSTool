@@ -44,7 +44,7 @@ public class Architecture implements IArchitecture{
         while(it.hasNext()){
             el = it.next();
             if(el.getName().equals(name))
-                el.addComponent(ae);                
+                el.addArchitectureElement(ae);                
         }
     }
 
@@ -56,15 +56,10 @@ public class Architecture implements IArchitecture{
         while(it.hasNext()){
             el = it.next();
             if(el.getName().equals(name))
-                el.addConnector(r);                
+                el.addRelation(r);                
         }
        
     }
-    
-
-    
-    
-    
     
     
     @Override
@@ -73,11 +68,6 @@ public class Architecture implements IArchitecture{
         return null;
     }
 
-    @Override
-    public void addTracebilityLink(ViewType source, ViewType dest){
-        // TODO Auto-generated method stub
-        
-    }
 
     @Override
     public ArchitectureModel getView(ViewType type, String name) {
@@ -104,6 +94,37 @@ public class Architecture implements IArchitecture{
         return result;
     }
 
+    @Override
+    public boolean addTracebilityLink(String sourceId, String destId) {
+        
+        //find source and destID reference
+        ArchitectureElement sourceRefer = null, destRefer = null;
+        
+        for(int i=0; i<viewlist.length;i++){
+            Iterator<ArchitectureModel> it = viewlist[i].iterator();
+            while(it.hasNext()){
+                ArchitectureModel model = it.next();
+                sourceRefer = model.getElements().get(sourceId);
+                if(sourceRefer == null)
+                    destRefer = model.getElements().get(destId);
+            }
+        }
+        
+        
+        if(sourceRefer != null && destRefer != null){
+            return true;
+        }
+        else 
+            return false;
+      
+        
+    }
+
+    @Override
+    public void addTracebilityLink(ViewType source, ViewType dest){
+        // TODO Auto-generated method stub
+        
+    }
 
 
 }

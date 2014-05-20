@@ -16,9 +16,14 @@ public interface IArchitecture {
     public void addRelation(ViewType type,String name, Relation r);
     
     public ArchitectureModel getView(ViewType type,String name);
+ 
     
-    public void addTracebilityLink(ViewType source, ViewType dest);
+    public boolean addTracebilityLink(String sourceId, String destId); //using this method
+    public void addTracebilityLink(ViewType source, ViewType dest); //not use
 
+ 
+    
+    
     //get information of architecture
     public String overallInformation();
     
