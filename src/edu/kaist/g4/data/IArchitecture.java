@@ -11,9 +11,9 @@ import java.util.Vector;
 public interface IArchitecture {
     
     //init architecture object
-    public void addView(ViewType type, ArchitectureModel view);
-    public void addAnComponent(ViewType type,String name, ArchitectureElement ae);
-    public void addAnConnector(ViewType type,String name, Relation r);
+    public void addArchitectureModel(ViewType type, ArchitectureModel model);
+    public void addArchitectureElement(ViewType type,String name, ArchitectureElement ae);
+    public void addRelation(ViewType type,String name, Relation r);
     
     public ArchitectureModel getView(ViewType type,String name);
     
