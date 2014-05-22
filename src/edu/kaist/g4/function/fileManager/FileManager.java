@@ -15,8 +15,8 @@ import edu.kaist.g4.data.architecturalDifferentiations.ArchitecturalDifferentiat
 public class FileManager implements IFileManager{
     
     // TODO: Singleton 으로 할 필요가 있을까? Github 이슈 게시판 참조.
-    Reader reader;
-    Writer writer;
+    private Reader reader;
+    private Writer writer;
     
     public FileManager(){
         reader = new Reader();

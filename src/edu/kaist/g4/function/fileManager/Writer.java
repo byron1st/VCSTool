@@ -6,7 +6,7 @@ import edu.kaist.g4.data.Architecture;
 
 
 public class Writer{
-    XMLParsingRules parsingRule;
+    private XMLParsingRules parsingRule;
     
     public Writer(){
         parsingRule = new XMLParsingRules();

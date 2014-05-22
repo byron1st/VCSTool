@@ -31,19 +31,26 @@ import edu.kaist.g4.data.RelationType;
 import edu.kaist.g4.data.ViewType;
 
 public class XMLParsingRules{
-
+    private String linkSrcId;
+    private ArrayList<String> linkDstId;
     
-    public void executeReadRule(View_XML viewXML, String qName, Attributes attributes){
+    public void executeReadRule(Model_XML modelXML, Traceability_XML tLinkXML, String qName, Attributes attributes){
         if (qName.equals("XMI")){
-            viewXML.id = attributes.getValue("timestamp");
+            modelXML.setId(attributes.getValue("timestamp"));
         }
         else if(qName.equals("UML:Type")){
             String type = attributes.getValue("name");
             if(type.equals("Class Model")){
-                viewXML.type = ViewType.MODULE;
+                modelXML.setType(ViewType.MODULE);
+                modelXML.setId(attributes.getValue("xmi.id"));
             }
             else if(type.equals("Component Model")){
-                viewXML.type = ViewType.CNC;
+                modelXML.setType(ViewType.CNC);
+                modelXML.setId(attributes.getValue("xmi.id"));
+            }
+            else if(type.equals("Traceability Model")){
+                tLinkXML.setSrcModelID(attributes.getValue("srcModel"));
+                tLinkXML.setDstModelID(attributes.getValue("dstModel"));
             }
         }
         //Class Model(Module View)
@@ -51,49 +58,65 @@ public class XMLParsingRules{
             ArrayList<Object> list = new ArrayList<Object>();
             list.add(ElementType.MODULE);
             list.add(attributes.getValue("name"));
-            viewXML.elements.put(attributes.getValue("xmi.id"), list);
+            modelXML.getElements().put(attributes.getValue("xmi.id"), list);
         }
         else if(qName.equals("UML:Package")) {          //하위 class 읽을 필요
             ArrayList<Object> list = new ArrayList<Object>();
-            list.add(ElementType.MODULE);               //Package로 수정 필요
+            list.add(ElementType.PACKAGE);               
             list.add(attributes.getValue("name"));
-            viewXML.elements.put(attributes.getValue("xmi.id"), list);
+            modelXML.getElements().put(attributes.getValue("xmi.id"), list);
         }
         else if(qName.equals("UML:Generalization")){
             ArrayList<Object> list = new ArrayList<Object>();
             list.add(RelationType.GENERALIZATION);
             list.add(attributes.getValue("subtype"));
             list.add(attributes.getValue("supertype"));
-            viewXML.relations.put(attributes.getValue("xmi.id"), list);
+            modelXML.getRelations().put(attributes.getValue("xmi.id"), list);
         }
         else if(qName.equals("UML:Dependency")){
             ArrayList<Object> list = new ArrayList<Object>();
             list.add(RelationType.DEPENDENCY);
             list.add(attributes.getValue("client"));
             list.add(attributes.getValue("supplier"));
-            viewXML.relations.put(attributes.getValue("xmi.id"), list);
+            modelXML.getRelations().put(attributes.getValue("xmi.id"), list);
         }
         //Component Model(CNC View)
         else if(qName.equals("UML:Component")){
             ArrayList<Object> list = new ArrayList<Object>();
             list.add(ElementType.COMPONENT);
             list.add(attributes.getValue("name"));
-            viewXML.elements.put(attributes.getValue("xmi.id"), list);
+            modelXML.getElements().put(attributes.getValue("xmi.id"), list);
         }
         else if(qName.equals("UML:Connector")){
             ArrayList<Object> list = new ArrayList<Object>();
             list.add(ElementType.CONNECTOR);
             list.add(attributes.getValue("name"));
-            viewXML.elements.put(attributes.getValue("xmi.id"), list);
+            modelXML.getElements().put(attributes.getValue("xmi.id"), list);
         }
         else if(qName.equals("UML:Association")){
             ArrayList<Object> list = new ArrayList<Object>();
             list.add(RelationType.RELATION);
             list.add(attributes.getValue("client"));
             list.add(attributes.getValue("supplier"));
-            viewXML.relations.put(attributes.getValue("xmi.id"), list);
+            modelXML.getRelations().put(attributes.getValue("xmi.id"), list);
+        }
+        //Traceability Links
+        else if(qName.equals("UML:TraceLink")){
+            linkSrcId = attributes.getValue("src");
+//            tLinkXML.getLinks().put(attributes.getValue("src"), );
         }
     }
+    
+    //하위 tag가 여러개인 경우
+    public void endReadRule(Traceability_XML tLinkXML, String qName, String text){
+        if(qName.equals("UML:TraceLink")){
+            tLinkXML.getLinks().put(linkSrcId, linkDstId);
+        }
+        else if(qName.equals("dst")){
+            linkDstId.add(text);
+        }
+    }
+    
     public void executeWriteRule(Architecture arch){
       //XMLWriter variables
         try{
@@ -129,6 +152,10 @@ public class XMLParsingRules{
                     attr.setValue("Component Model");
                 }
                 typeElement.setAttributeNode(attr);
+                
+                attr = doc.createAttribute("xmi.id");
+                attr.setValue(archModel.getId());
+                typeElement.setAttributeNode(attr);
                 rootElement.appendChild(typeElement);
                 
                 //add element
@@ -142,6 +169,9 @@ public class XMLParsingRules{
                     ElementType eType = archElement.getType();
                     if(eType == ElementType.MODULE){
                         childElement = doc.createElement("UML:Class");
+                    }
+                    if(eType == ElementType.PACKAGE){
+                        childElement = doc.createElement("UML:Package");
                     }
                     else if(eType == ElementType.COMPONENT){
                         childElement = doc.createElement("UML:Component");
@@ -212,7 +242,7 @@ public class XMLParsingRules{
                 transformer.setOutputProperty(OutputKeys.INDENT, "yes");        
                 
                 DOMSource source = new DOMSource(doc); 
-                StreamResult result = new StreamResult(new FileOutputStream(new File("version1.1/aa"+vType.toString()+".xml"))); 
+                StreamResult result = new StreamResult(new FileOutputStream(new File("version1.1/"+vType.toString()+"_"+archModel.getId()+".xml"))); 
          
                 transformer.transform(source, result);
             }
