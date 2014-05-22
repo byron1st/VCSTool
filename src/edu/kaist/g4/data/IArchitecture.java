@@ -19,7 +19,7 @@ public interface IArchitecture {
  
     
     public boolean addTracebilityLink(String sourceId, Vector<String> destId); //using this method
-    public void addTracebilityLink(ViewType source, ViewType dest); //not use
+    public boolean addTracebilityLink(String sourceId, Vector<String> destId, ArchitectureModel sorcemodel, ArchitectureModel destmodel); //not use
 
  
     
