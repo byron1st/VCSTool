@@ -47,8 +47,8 @@ public class FileManager implements IFileManager{
     @Override
     public Architecture readRecentArchitecture() {
         try{
-            File file = new File("version1.0");
-            File[] listFiles = file.listFiles();
+            File mFile = new File("version1.0/Model");
+            File[] listFiles = mFile.listFiles();
             SAXParserFactory spf = SAXParserFactory.newInstance();  
             SAXParser sp = spf.newSAXParser();  
             XMLReader xr = sp.getXMLReader();
@@ -58,6 +58,11 @@ public class FileManager implements IFileManager{
                 xr.parse(new InputSource(new FileInputStream(f)));
                 reader.addArchitectureModel();
             }
+            
+            File tFile = new File("version1.0/Traceability/Traceability.xml");
+            xr.parse(new InputSource(new FileInputStream(tFile)));
+            reader.addTraceability();
+            
         } catch (Exception e) {  
             e.printStackTrace();  
         }
