@@ -35,7 +35,7 @@ public class Reader extends DefaultHandler{
             ae.setId(str);
             ae.setType((ElementType)list.get(0));
             ae.setName((String)list.get(1));
-            v.addComponent(ae);
+            v.addArchitectureElement(ae);
         }
         
         Set<String> relationSet = viewXML.relations.keySet();
@@ -44,7 +44,7 @@ public class Reader extends DefaultHandler{
             String srcID = (String)list.get(1);
             String dstID = (String)list.get(2);
             Relation relation = new Relation((RelationType)list.get(0), getElementByID(srcID), getElementByID(dstID)); //type, source, des
-            v.addConnector(relation);
+            v.addRelation(relation);
         }
         
         arch.addArchitectureModel(viewXML.type, v);
