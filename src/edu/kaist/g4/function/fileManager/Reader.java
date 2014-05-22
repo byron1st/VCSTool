@@ -51,8 +51,10 @@ public class Reader extends DefaultHandler{
             ArrayList<Object> list = modelXML.getRelations().get(str);
             String srcID = (String)list.get(1);
             String dstID = (String)list.get(2);
+
             Relation relation = new Relation((RelationType)list.get(0), getElementByID(srcID), getElementByID(dstID)); //type, source, dst
             m.addRelation(relation);
+
         }
         
         arch.addArchitectureModel(modelXML.getType(), m);
