@@ -16,7 +16,8 @@ public class Architecture implements IArchitecture{
     protected String archname, id;
 
     protected Vector<ArchitectureModel>[] viewlist;
-    protected HashMap<String, TraceabilityLink> tLinks;
+    protected Vector<TraceabilityLink> tLinks;
+    //protected HashMap<String, TraceabilityLink> tLinks;
     
     //객체생성을 언제, 어떻게
     public Architecture(String archname){
@@ -24,7 +25,8 @@ public class Architecture implements IArchitecture{
         for(int i=0;i<viewlist.length;i++){
             viewlist[i] = new Vector<ArchitectureModel>();
         }
-        tLinks = new HashMap<String, TraceabilityLink>();
+        //tLinks = new HashMap<String, TraceabilityLink>();
+        tLinks = new Vector<TraceabilityLink>();
         
         id = archname + System.currentTimeMillis();
         this.archname = archname;
@@ -95,23 +97,29 @@ public class Architecture implements IArchitecture{
     }
 
     @Override
-    public boolean addTracebilityLink(String sourceId, String destId) {
+    public boolean addTracebilityLink(String sourceId, Vector<String> destId) {
         
         //find source and destID reference
-        ArchitectureElement sourceRefer = null, destRefer = null;
+        ArchitectureElement sourceRefer = null;
+        ArchitectureElement destRefer = null;
+        Vector<ArchitectureElement> destlist = new Vector<ArchitectureElement>();
         
         for(int i=0; i<viewlist.length;i++){
             Iterator<ArchitectureModel> it = viewlist[i].iterator();
             while(it.hasNext()){
                 ArchitectureModel model = it.next();
                 sourceRefer = model.getElements().get(sourceId);
-                if(sourceRefer == null)
-                    destRefer = model.getElements().get(destId);
+                if(sourceRefer == null){
+                     destRefer = model.getElements().get(destId);
+                     if(destRefer != null)
+                         destlist.add(destRefer);
+                }
             }
         }
         
         
-        if(sourceRefer != null && destRefer != null){
+        if(sourceRefer != null && destlist.size() != 0){
+            tLinks.add(new TraceabilityLink(sourceRefer, destlist));
             return true;
         }
         else 

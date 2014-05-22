@@ -1,5 +1,7 @@
 package edu.kaist.g4.data;
 
+import java.util.Vector;
+
 
 /**
  * 
@@ -12,17 +14,17 @@ package edu.kaist.g4.data;
 public class TraceabilityLink {
     
     private ArchitectureModel sourceModel, destModel;
-    private ArchitectureElement source, destination;
+    private ArchitectureElement source;
+    private Vector<ArchitectureElement> destination;
     private String description;
     
     
-    public TraceabilityLink(ArchitectureElement srcID, ArchitectureElement destID){
-      this.source = srcID;
-      this.destination = destID;
-        
+    public TraceabilityLink(ArchitectureElement srcRefer, Vector<ArchitectureElement> destList){
+      this.source = srcRefer;
+      this.destination = destList;
     }
     
-    public TraceabilityLink(ArchitectureModel smodelID, ArchitectureElement srcID, ArchitectureModel dmodelID, ArchitectureElement destID){
+    public TraceabilityLink(ArchitectureModel smodelID, ArchitectureElement srcID, ArchitectureModel dmodelID, Vector<ArchitectureElement> destID){
         //if we can use this type... need more discussion
         this.source = srcID;
         this.destination = destID;
@@ -54,11 +56,12 @@ public class TraceabilityLink {
         this.source = source;
     }
 
-    public ArchitectureElement getDestination() {
+
+    public Vector<ArchitectureElement> getDestination() {
         return destination;
     }
 
-    public void setDestination(ArchitectureElement destination) {
+    public void setDestination(Vector<ArchitectureElement> destination) {
         this.destination = destination;
     }
 

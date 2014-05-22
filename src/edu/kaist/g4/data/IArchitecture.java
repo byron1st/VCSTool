@@ -18,7 +18,7 @@ public interface IArchitecture {
     public ArchitectureModel getView(ViewType type,String name);
  
     
-    public boolean addTracebilityLink(String sourceId, String destId); //using this method
+    public boolean addTracebilityLink(String sourceId, Vector<String> destId); //using this method
     public void addTracebilityLink(ViewType source, ViewType dest); //not use
 
  
