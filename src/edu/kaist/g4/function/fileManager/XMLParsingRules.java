@@ -103,6 +103,7 @@ public class XMLParsingRules{
         //Traceability Links
         else if(qName.equals("UML:TraceLink")){
             linkSrcId = attributes.getValue("src");
+            linkDstId = new ArrayList<String>();
 //            tLinkXML.getLinks().put(attributes.getValue("src"), );
         }
     }

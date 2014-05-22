@@ -3,6 +3,7 @@ package edu.kaist.g4.function.fileManager;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
+import java.util.Vector;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
@@ -14,13 +15,15 @@ import edu.kaist.g4.data.ArchitectureModel;
 import edu.kaist.g4.data.ElementType;
 import edu.kaist.g4.data.Relation;
 import edu.kaist.g4.data.RelationType;
+import edu.kaist.g4.data.TraceabilityLink;
 
 public class Reader extends DefaultHandler{
     private Model_XML modelXML;
     private Traceability_XML tLinkXML;
     private Architecture arch;
     private XMLParsingRules parsingRule;
-    private ArchitectureModel v;
+    private ArchitectureModel m;
+    private TraceabilityLink t;
     private String text;
     
     public Reader(){
@@ -28,9 +31,9 @@ public class Reader extends DefaultHandler{
     }
 
     public Architecture addArchitectureModel(){
-        v = new ArchitectureModel(modelXML.getType());
+        m = new ArchitectureModel(modelXML.getType());
 
-        v.setId(modelXML.getId());
+        m.setId(modelXML.getId());
         //elements
         Set<String> elementSet = modelXML.getElements().keySet();
         for(String str : elementSet){
@@ -39,7 +42,7 @@ public class Reader extends DefaultHandler{
             ae.setId(str);
             ae.setType((ElementType)list.get(0));
             ae.setName((String)list.get(1));
-            v.addArchitectureElement(ae);
+            m.addArchitectureElement(ae);
         }
         
         //relations
@@ -50,16 +53,33 @@ public class Reader extends DefaultHandler{
             String dstID = (String)list.get(2);
 
             Relation relation = new Relation((RelationType)list.get(0), getElementByID(srcID), getElementByID(dstID)); //type, source, dst
+            m.addRelation(relation);
 
-            v.addRelation(relation);
         }
         
-        arch.addArchitectureModel(modelXML.getType(), v);
+        arch.addArchitectureModel(modelXML.getType(), m);
         return arch;
     }
+    
+    public void addTraceability(){
+        String srcModelId = tLinkXML.getSrcModelID();
+        String dstModelId = tLinkXML.getDstModelID();
+//        t = new TraceabilityLink(getModelByID(srcModelId), getModelByID(dstModelId));
+    }
+    
     public ArchitectureElement getElementByID(String id){
-        HashMap<String, ArchitectureElement> hm = v.getElements();
+        HashMap<String, ArchitectureElement> hm = m.getElements();
         return (ArchitectureElement)hm.get(id);
+    }
+    
+    public ArchitectureModel getModelByID(String id){
+        Vector<ArchitectureModel> am = arch.getArchitectureModels();
+        for(ArchitectureModel model : am){
+            if(model.getId().equals(id)){
+                return model;
+            }
+        }
+        return null;
     }
     
     public Model_XML getParsedData(){
