@@ -160,6 +160,38 @@ public class Architecture implements IArchitecture {
         
     }
 
+    public String getArchname() {
+        return archname;
+    }
+
+    public void setArchname(String archname) {
+        this.archname = archname;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public Vector<ArchitectureModel>[] getViewlist() {
+        return viewlist;
+    }
+
+    public void setViewlist(Vector<ArchitectureModel>[] viewlist) {
+        this.viewlist = viewlist;
+    }
+
+    public Vector<TraceabilityLink> gettLinks() {
+        return tLinks;
+    }
+
+    public void settLinks(Vector<TraceabilityLink> tLinks) {
+        this.tLinks = tLinks;
+    }
+
 
 
 }
