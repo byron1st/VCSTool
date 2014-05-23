@@ -2,6 +2,7 @@ package edu.kaist.g4.function.fileManager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Vector;
 
 import edu.kaist.g4.data.ViewType;
 
@@ -11,7 +12,7 @@ public class Model_XML{
     private String id;
     private ViewType type;
     private HashMap<String, ArrayList<Object>> elements = new HashMap<String, ArrayList<Object>>();     //key: id(String), value1: type(ElementType), value2: name(String)
-    private HashMap<String, ArrayList<Object>> relations = new HashMap<String, ArrayList<Object>>();    //key: id(String), value1: type(RelationType), value2: source(String), value3: target (String)
+    private Vector<Object> relations = new Vector<Object>();    //key: id(String), value1: type(RelationType), value2: source(String), value3: target (String)
     
     public String getId(){
         return id;
@@ -33,7 +34,7 @@ public class Model_XML{
         return elements;
     }
     
-    public HashMap<String, ArrayList<Object>> getRelations(){
+    public Vector<Object> getRelations(){
         return relations;
     }
     

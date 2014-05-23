@@ -46,9 +46,9 @@ public class Reader extends DefaultHandler{
         }
         
         //relations
-        Set<String> relationSet = modelXML.getRelations().keySet();
-        for(String str : relationSet){
-            ArrayList<Object> list = modelXML.getRelations().get(str);
+        Vector<Object> relationSet = modelXML.getRelations();
+        for(Object relationList : relationSet){
+            ArrayList<Object> list = (ArrayList<Object>)relationList;
             String srcID = (String)list.get(1);
             String dstID = (String)list.get(2);
 
@@ -61,15 +61,15 @@ public class Reader extends DefaultHandler{
     }
     
     public void addTraceability(){
-//        String srcModelId = tLinkXML.getSrcModelID();
-//        String dstModelId = tLinkXML.getDstModelID();
-        HashMap<String, ArrayList<String>> links = tLinkXML.getLinks();
+        HashMap<String, ArrayList<Object>> links = tLinkXML.getLinks();
         Set<String> srcElementSet = links.keySet();
-        for(String str : srcElementSet){
-            Vector<String> v = new Vector<String>(links.get(str));
-            arch.addTracebilityLink(str, v);
+        for(String srcElementId : srcElementSet){
+            ArrayList<Object> list = links.get(srcElementId);
+            String srcModelId = (String)list.get(0);
+            String dstModelId = (String)list.get(1);
+            Vector<String> v = (Vector<String>)list.get(2);
+            arch.addTracebilityLink(srcElementId, v, getModelByID(srcModelId), getModelByID(dstModelId));
         }
-//        t = new TraceabilityLink(getModelByID(srcModelId), getModelByID(dstModelId));
     }
     
     public ArchitectureElement getElementByID(String id){

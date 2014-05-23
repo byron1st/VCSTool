@@ -28,11 +28,13 @@ import edu.kaist.g4.data.ArchitectureModel;
 import edu.kaist.g4.data.ElementType;
 import edu.kaist.g4.data.Relation;
 import edu.kaist.g4.data.RelationType;
+import edu.kaist.g4.data.TraceabilityLink;
 import edu.kaist.g4.data.ViewType;
 
 public class XMLParsingRules{
     private String linkSrcId;
-    private ArrayList<String> linkDstId;
+    private ArrayList<Object> linkDstId;
+    private Vector<String> dstIdList;
     
     public void executeReadRule(Model_XML modelXML, Traceability_XML tLinkXML, String qName, Attributes attributes){
         if (qName.equals("XMI")){
@@ -48,10 +50,11 @@ public class XMLParsingRules{
                 modelXML.setType(ViewType.CNC);
                 modelXML.setId(attributes.getValue("xmi.id"));
             }
-            else if(type.equals("Traceability Model")){
+/*            else if(type.equals("Traceability Model")){
                 tLinkXML.setSrcModelID(attributes.getValue("srcModel"));
                 tLinkXML.setDstModelID(attributes.getValue("dstModel"));
             }
+*/
         }
         //Class Model(Module View)
         else if(qName.equals("UML:Class")) {
@@ -71,14 +74,14 @@ public class XMLParsingRules{
             list.add(RelationType.GENERALIZATION);
             list.add(attributes.getValue("subtype"));
             list.add(attributes.getValue("supertype"));
-            modelXML.getRelations().put(attributes.getValue("xmi.id"), list);
+            modelXML.getRelations().add(list);
         }
         else if(qName.equals("UML:Dependency")){
             ArrayList<Object> list = new ArrayList<Object>();
             list.add(RelationType.DEPENDENCY);
             list.add(attributes.getValue("client"));
             list.add(attributes.getValue("supplier"));
-            modelXML.getRelations().put(attributes.getValue("xmi.id"), list);
+            modelXML.getRelations().add(list);
         }
         //Component Model(CNC View)
         else if(qName.equals("UML:Component")){
@@ -98,12 +101,15 @@ public class XMLParsingRules{
             list.add(RelationType.RELATION);
             list.add(attributes.getValue("client"));
             list.add(attributes.getValue("supplier"));
-            modelXML.getRelations().put(attributes.getValue("xmi.id"), list);
+            modelXML.getRelations().add(list);
         }
         //Traceability Links
         else if(qName.equals("UML:TraceLink")){
             linkSrcId = attributes.getValue("src");
-            linkDstId = new ArrayList<String>();
+            linkDstId = new ArrayList<Object>();
+            dstIdList = new Vector<String>();
+            linkDstId.add(attributes.getValue("srcModel"));
+            linkDstId.add(attributes.getValue("dstModel"));
 //            tLinkXML.getLinks().put(attributes.getValue("src"), );
         }
     }
@@ -111,10 +117,11 @@ public class XMLParsingRules{
     //하위 tag가 여러개인 경우
     public void endReadRule(Traceability_XML tLinkXML, String qName, String text){
         if(qName.equals("UML:TraceLink")){
+            linkDstId.add(dstIdList);
             tLinkXML.getLinks().put(linkSrcId, linkDstId);
         }
         else if(qName.equals("dst")){
-            linkDstId.add(text);
+            dstIdList.add(text);
         }
     }
     
@@ -124,6 +131,7 @@ public class XMLParsingRules{
             DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance(); 
             DocumentBuilder docBuilder = docFactory.newDocumentBuilder();          
 
+            /*architectureModel write*/
             Vector<ArchitectureModel> archModels = arch.getArchitectureModels();
             for(ArchitectureModel archModel : archModels){
                 Document doc = docBuilder.newDocument();
@@ -243,10 +251,72 @@ public class XMLParsingRules{
                 transformer.setOutputProperty(OutputKeys.INDENT, "yes");        
                 
                 DOMSource source = new DOMSource(doc); 
-                StreamResult result = new StreamResult(new FileOutputStream(new File("version1.1/"+vType.toString()+"_"+archModel.getId()+".xml"))); 
+                StreamResult result = new StreamResult(new FileOutputStream(new File("version1.1/Model/"+vType.toString()+"_"+archModel.getId()+".xml"))); 
          
                 transformer.transform(source, result);
             }
+            
+            /*Traceability write*/
+            Document doc = docBuilder.newDocument();
+            Element traceLinkElement = null;
+            Element rootElement;
+            Attr attr;
+            
+            //root element
+            rootElement = doc.createElement("XMI");
+            attr = doc.createAttribute("timestamp");
+            attr.setValue(Long.toString(System.currentTimeMillis()));
+            rootElement.setAttributeNode(attr);
+            attr = doc.createAttribute("xmlns:UML");
+            attr.setValue("omg.org/UML1.3");
+            rootElement.setAttributeNode(attr);
+            doc.appendChild(rootElement);
+            
+            Element typeElement = doc.createElement("UML:Type");
+            attr = doc.createAttribute("name");
+            attr.setValue("Traceability Model");
+            typeElement.setAttributeNode(attr);
+            rootElement.appendChild(typeElement);
+            
+            Vector<TraceabilityLink> tLinks = arch.gettLinks();
+            for(TraceabilityLink link : tLinks){
+                traceLinkElement = doc.createElement("UML:TraceLink");
+                
+                attr = doc.createAttribute("src");
+                attr.setValue(link.getSource().getId());
+                traceLinkElement.setAttributeNode(attr);
+                typeElement.appendChild(traceLinkElement);
+                
+                attr = doc.createAttribute("srcModel");
+                attr.setValue(link.getSourceModel().getId());
+                traceLinkElement.setAttributeNode(attr);
+                typeElement.appendChild(traceLinkElement);
+                
+                attr = doc.createAttribute("dstModel");
+                attr.setValue(link.getDestModel().getId());
+                traceLinkElement.setAttributeNode(attr);
+                typeElement.appendChild(traceLinkElement);
+                
+                //add element
+                Vector<ArchitectureElement> dstElements = (Vector<ArchitectureElement>)link.getDestination();
+                for(ArchitectureElement ae : dstElements){
+                    Element dst = doc.createElement("dst");
+                    dst.appendChild(doc.createTextNode(ae.getId()));
+                    traceLinkElement.appendChild(dst);
+                }
+            }
+         // XML write 
+            TransformerFactory transformerFactory = TransformerFactory.newInstance(); 
+            Transformer transformer = transformerFactory.newTransformer(); 
+     
+            transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8"); 
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");        
+            
+            DOMSource source = new DOMSource(doc); 
+            StreamResult result = new StreamResult(new FileOutputStream(new File("version1.1/Traceability/traceability.xml"))); 
+     
+            transformer.transform(source, result);
+            
         }catch(ParserConfigurationException pce){
             pce.printStackTrace();
         }catch(TransformerException tfe){

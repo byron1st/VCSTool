@@ -4,29 +4,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Traceability_XML {
-    private String srcModelID;
-    private String dstModelID;
-    
-    private HashMap<String, ArrayList<String>> links = new HashMap<String, ArrayList<String>>();     //key: id(String), value1: type(ElementType), value2: name(String)
+    private HashMap<String, ArrayList<Object>> links = new HashMap<String, ArrayList<Object>>();     //key: src(String), value1: srcModel(String), value2: dstModel(Vector<String>)
     
     
-    public String getSrcModelID(){
-        return srcModelID;
-    }
-    
-    public void setSrcModelID(String id){
-        this.srcModelID = id;
-    }
-    
-    public String getDstModelID(){
-        return dstModelID;
-    }
-    
-    public void setDstModelID(String id){
-        this.dstModelID = id;
-    }
-    
-    public HashMap<String, ArrayList<String>> getLinks(){
+    public HashMap<String, ArrayList<Object>> getLinks(){
         return links;
     }
 }
