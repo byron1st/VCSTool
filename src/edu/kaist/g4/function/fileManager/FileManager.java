@@ -52,7 +52,7 @@ public class FileManager implements IFileManager{
             XMLReader xr = sp.getXMLReader();
             xr.setContentHandler(reader);
             
-            File mFile = new File("version1.0/Model");
+            File mFile = new File("RecentArchitecture/Model");
             File[] mListFiles = mFile.listFiles();
             
             for(File f : mListFiles){     
@@ -60,7 +60,7 @@ public class FileManager implements IFileManager{
                 reader.addArchitectureModel();
             }
             
-            File tFile = new File("version1.0/Traceability");
+            File tFile = new File("RecentArchitecture/Traceability");
             File[] tListFiles = tFile.listFiles();
             
             for(File f : tListFiles){     
