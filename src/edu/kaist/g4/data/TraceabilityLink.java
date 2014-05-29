@@ -1,5 +1,6 @@
 package edu.kaist.g4.data;
 
+import java.util.Iterator;
 import java.util.Vector;
 
 
@@ -74,7 +75,16 @@ public class TraceabilityLink {
     }
     
     public String overallInformation(){
-        return null;
+        String result = "source:";
+        result += source.getName() + "(" + source.getId() +")\n";
+
+        Iterator<ArchitectureElement> it = destination.iterator();
+        while(it.hasNext()){
+            ArchitectureElement ae = it.next();
+            result += "destination: " + ae.getName()+"("+ae.getId()+")\n";
+        }
+
+        return result;
     }
     
 }

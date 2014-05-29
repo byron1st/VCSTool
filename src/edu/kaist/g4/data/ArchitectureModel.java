@@ -115,7 +115,7 @@ public class ArchitectureModel {
             ArchitectureElement ae = it.next();
             result += ae.getInformation() + "\n";
         }
-        result = "Relation List\n";
+        result += "Relation List\n";
         Iterator<Relation> it2 = this.relations.iterator();
         while(it2.hasNext()){
             Relation r = it2.next();
