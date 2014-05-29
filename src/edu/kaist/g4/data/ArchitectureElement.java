@@ -85,6 +85,11 @@ public class ArchitectureElement {
         this.relations = relations;
     }
     
+    public String getInformation(){
+        String result = "ID: " + this.id + " . " + this.name;
+        return result;
+    }
+    
     
 
     
