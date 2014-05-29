@@ -21,6 +21,8 @@ public class Architecture implements IArchitecture {
 
     // 객체생성을 언제, 어떻게
     public Architecture(String archname) {
+        archname = "NO NAME";
+        id = "0000000000";
         viewlist = new Vector[ViewType.values().length];
         for (int i = 0; i < viewlist.length; i++) {
             viewlist[i] = new Vector<ArchitectureModel>();
@@ -67,7 +69,38 @@ public class Architecture implements IArchitecture {
     @Override
     public String overallInformation() {
         // TODO Auto-generated method stub
-        return null;
+        String result = "Architecture Information\n\n";
+        result += "Name: " + this.archname + "\n";
+        result += "ID: " + this.id  + "\n";
+        result += "ViewPoint : ";
+        for(int i=0;i<this.viewlist.length;i++){
+            if(viewlist[i] != null){
+                result += ViewType.values()[i].toString();
+                if(i != this.viewlist.length-1)
+                    result += ", ";
+            }
+        }
+        result += "\n";
+        
+        for(int i=0;i<this.viewlist.length;i++){
+            if(viewlist[i] != null){
+                result += ViewType.values()[i].toString() + " Views Information\n";
+                Iterator<ArchitectureModel>it = viewlist[i].iterator();
+                while(it.hasNext()){
+                    ArchitectureModel model = it.next();
+                    result += model.overallInformation();
+                    result += "\n";
+                }
+                result = "\n\n";
+            }
+        }
+        
+        result += "TraceabilityLink List\n";
+        Iterator<TraceabilityLink> it = this.tLinks.iterator();
+        while(it.hasNext()){
+            result += it.next().overallInformation() + "\n";
+        }
+        return result;
     }
 
     @Override

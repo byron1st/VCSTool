@@ -56,6 +56,9 @@ public class Relation {
         this.attributes = attributes;
     }
 
-    
+    public String getInformation(){
+        String result = "source: " + this.source.getId() + "-> destination: " + this.destination.getId();
+        return result;
+    }
 
 }

@@ -17,15 +17,28 @@ import edu.kaist.g4.function.fileManager.IFileManager;
  * @Detail   :
  * 
  */
-public class ArchitectureVersionManager {
+/**
+ * 
+ * @author : Junhaeng Heo
+ * Implement IArchitectureVersionManager
+ *
+ */
+public class ArchitectureVersionManager implements IArchitectureVersionManager{
     
     //TODO: 차후 수정.
     IFileManager fileManager = new FileManager();
     
+    //checkout에서도 recentArchitecture를 사용하기 때문에 멤버변수로 선언
+    Architecture recentArchitecture;
+   
+    
+    
     public void commitNewArchitecture(String filePathforNewArchitecture) {
         //TODO: 여기다 Sequence 다이어그램 내용 넣기
         Architecture workingArchitecture = fileManager.readWorkingArchitecture(filePathforNewArchitecture);
-        Architecture recentArchitecture = fileManager.readRecentArchitecture();
+        
+        if(recentArchitecture == null)
+            recentArchitecture = fileManager.readRecentArchitecture();
         
         INewVersionGenerator newVersionGenerator = new NewVersionGenerator(workingArchitecture, recentArchitecture);
         Vector<ArchitectureChange> architectureChange = newVersionGenerator.buildNewVersion();
@@ -37,4 +50,18 @@ public class ArchitectureVersionManager {
         fileManager.writeNewRecentArchitecture(workingArchitecture);
         fileManager.appendDiffList(newDiffList);
     }
+
+
+
+    @Override
+    public String checkoutRecentArchitecture() {
+        // TODO Auto-generated method stub
+        if(recentArchitecture == null)
+            recentArchitecture = fileManager.readRecentArchitecture();
+        
+        return recentArchitecture.overallInformation();
+        
+    }
+    
+    
 }

@@ -36,6 +36,8 @@ public class ArchitectureModel {
         elements = new HashMap<String, ArchitectureElement>();
         relations = new Vector<Relation>();
         
+        id = "00000";
+        name = "NO NAME";
         this.type = viewtype;
         
     }
@@ -44,7 +46,8 @@ public class ArchitectureModel {
         elements = new HashMap<String, ArchitectureElement>();
         relations = new Vector<Relation>();
 
-        id = name;
+        id = "00000";
+        name = "NO NAME";
         this.type = viewtype;
         
     }
@@ -105,6 +108,21 @@ public class ArchitectureModel {
         this.id = id;
     }
     
-    
+    public String overallInformation(){
+        String result = "Elements List\n";
+        Iterator<ArchitectureElement> it = elements.values().iterator();
+        while(it.hasNext()){
+            ArchitectureElement ae = it.next();
+            result += ae.getInformation() + "\n";
+        }
+        result = "Relation List\n";
+        Iterator<Relation> it2 = this.relations.iterator();
+        while(it2.hasNext()){
+            Relation r = it2.next();
+            result += r.getInformation();
+        }
+        
+        return result;
+    }
 
 }

@@ -73,6 +73,8 @@ public class TraceabilityLink {
         this.description = description;
     }
     
-    
+    public String overallInformation(){
+        return null;
+    }
     
 }
