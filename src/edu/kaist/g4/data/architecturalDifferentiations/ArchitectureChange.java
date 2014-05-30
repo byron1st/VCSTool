@@ -14,6 +14,17 @@ public class ArchitectureChange {
     private String parameter;
     private String message;
     
+    public ArchitectureChange(ChangeOperationTypes changeOperation, String parameter, String message){
+        this.changeOperation = changeOperation;
+        this.parameter = parameter;
+        this.message = message;
+    }
+    
+    public ArchitectureChange(ChangeOperationTypes changeOperation, String parameter){
+        this.changeOperation = changeOperation;
+        this.parameter = parameter;
+    }
+    
     public ChangeOperationTypes getChangeOperation() {
         return changeOperation;
     }

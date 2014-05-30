@@ -38,7 +38,7 @@ public class XMLParsingRules{
     
     public void executeReadRule(Model_XML modelXML, Traceability_XML tLinkXML, String qName, Attributes attributes){
         if (qName.equals("XMI")){
-            modelXML.setId(attributes.getValue("timestamp"));
+            modelXML.setId(attributes.getValue("timestamp"));   //project id
         }
         else if(qName.equals("UML:Type")){
             String type = attributes.getValue("name");

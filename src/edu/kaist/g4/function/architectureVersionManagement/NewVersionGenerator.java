@@ -1,9 +1,13 @@
 package edu.kaist.g4.function.architectureVersionManagement;
 
+import java.util.Collection;
 import java.util.Vector;
 
 import edu.kaist.g4.data.Architecture;
+import edu.kaist.g4.data.ArchitectureElement;
+import edu.kaist.g4.data.ArchitectureModel;
 import edu.kaist.g4.data.architecturalDifferentiations.ArchitectureChange;
+import edu.kaist.g4.function.fileManager.XMLParsingRules;
 
 /**
  * 
@@ -17,6 +21,7 @@ import edu.kaist.g4.data.architecturalDifferentiations.ArchitectureChange;
 public class NewVersionGenerator implements INewVersionGenerator {
     Architecture workingArchitecture;
     Architecture recentArchitecture;
+    XMLParsingRules rule;
     
     public NewVersionGenerator(Architecture workingArchitecture, Architecture recentArchitecture) {
         this.workingArchitecture = workingArchitecture;
@@ -25,8 +30,13 @@ public class NewVersionGenerator implements INewVersionGenerator {
     
     @Override
     public Vector<ArchitectureChange> buildNewVersion() {
+        //change 정보를 만들어서 리턴하는 함수
+        Vector<ArchitectureModel> workingModels = workingArchitecture.getArchitectureModels();
+        Vector<ArchitectureModel> recentModels = recentArchitecture.getArchitectureModels();
         
-        return null;
+        Vector<ArchitectureChange> archiChanges = new GraphComparer().Compare(recentModels, workingModels);
+    
+        return archiChanges;
     }
 
 }
