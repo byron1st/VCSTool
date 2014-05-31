@@ -125,7 +125,7 @@ public class XMLParsingRules{
         }
     }
     
-    public void executeWriteRule(Architecture arch){
+    public void executeWriteRule(Architecture arch, String dir){
       //XMLWriter variables
         try{
             DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance(); 
@@ -251,7 +251,7 @@ public class XMLParsingRules{
                 transformer.setOutputProperty(OutputKeys.INDENT, "yes");        
                 
                 DOMSource source = new DOMSource(doc); 
-                StreamResult result = new StreamResult(new FileOutputStream(new File("version1.1/Model/"+vType.toString()+"_"+archModel.getId()+".xml"))); 
+                StreamResult result = new StreamResult(new FileOutputStream(new File(dir + "/Model/"+vType.toString()+"_"+archModel.getId()+".xml"))); 
          
                 transformer.transform(source, result);
             }
@@ -313,7 +313,7 @@ public class XMLParsingRules{
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");        
             
             DOMSource source = new DOMSource(doc); 
-            StreamResult result = new StreamResult(new FileOutputStream(new File("version1.1/Traceability/traceability.xml"))); 
+            StreamResult result = new StreamResult(new FileOutputStream(new File(dir + "/Traceability/traceability.xml"))); 
      
             transformer.transform(source, result);
             

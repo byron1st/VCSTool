@@ -44,12 +44,13 @@ public class ArchitectureVersionManager implements IArchitectureVersionManager{
         Vector<ArchitectureChange> architectureChange = newVersionGenerator.buildNewVersion();
         
         //TODO: Change Dicision에 관련된 내용을 여기에 넣기
-/*        
+        
+        workingArchitecture = fileManager.readWorkingArchitecture(dirPathforNewArchitecture);   //깊은 복사가 없어서 일단 다시 불러옴
         ArchitecturalDifferentiations newDiffList = new ArchitecturalDifferentiations(null, architectureChange);
         
         fileManager.writeNewRecentArchitecture(workingArchitecture);
         fileManager.appendDiffList(newDiffList);
-*/
+
     }
 
 

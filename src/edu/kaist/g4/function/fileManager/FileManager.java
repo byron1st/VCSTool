@@ -77,12 +77,15 @@ public class FileManager implements IFileManager{
     @Override
     public void writeNewRecentArchitecture(Architecture workingArchitecture) {
         reader = new Reader();
-        writer.writeArchitecture(workingArchitecture, "version1.1");
+        writer.writeArchitecture(workingArchitecture, "version1.1");    //RecentArchitecture로 변경
     }
 
     @Override
     public void appendDiffList(ArchitecturalDifferentiations addedArchitecturalDifferentiations) {
-        
+        File mDir = new File("DifferencesList");
+        if(!mDir.exists()){
+            mDir.mkdirs();
+        }
     }
 
 }
