@@ -11,16 +11,16 @@ public class Writer{
     public Writer(){
         parsingRule = new XMLParsingRules();
     }
-    public void writeArchitecture(Architecture arch, String version_no){
-        File mDir = new File(version_no+"/Model");
+    public void writeArchitecture(Architecture arch, String dir){
+        File mDir = new File(dir+"/Model");
         if(!mDir.exists()){
             mDir.mkdirs();
         }
-        File tDir = new File(version_no+"/Traceability");
+        File tDir = new File(dir+"/Traceability");
         if(!tDir.exists()){
             tDir.mkdirs();
         }
-        parsingRule.executeWriteRule(arch);
+        parsingRule.executeWriteRule(arch, dir);
     }
 }
  

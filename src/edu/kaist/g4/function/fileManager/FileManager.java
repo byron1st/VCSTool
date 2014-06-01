@@ -19,14 +19,14 @@ public class FileManager implements IFileManager{
     private Writer writer;
     
     public FileManager(){
-        reader = new Reader();
         writer = new Writer();
     }
 
     @Override
-    public Architecture readWorkingArchitecture(String filePath) {  //dir path??
+    public Architecture readWorkingArchitecture(String dirPath) {
+        reader = new Reader();
         try{
-            File file = new File(filePath);
+            File file = new File(dirPath);
             File[] listFiles = file.listFiles();
             for(File f : listFiles){   
                 SAXParserFactory spf = SAXParserFactory.newInstance();  
@@ -46,6 +46,7 @@ public class FileManager implements IFileManager{
 
     @Override
     public Architecture readRecentArchitecture() {
+        reader = new Reader();
         try{
             SAXParserFactory spf = SAXParserFactory.newInstance();  
             SAXParser sp = spf.newSAXParser();  
@@ -75,12 +76,16 @@ public class FileManager implements IFileManager{
 
     @Override
     public void writeNewRecentArchitecture(Architecture workingArchitecture) {
-        writer.writeArchitecture(workingArchitecture, "version1.1");
+        reader = new Reader();
+        writer.writeArchitecture(workingArchitecture, "version1.1");    //RecentArchitecture로 변경
     }
 
     @Override
     public void appendDiffList(ArchitecturalDifferentiations addedArchitecturalDifferentiations) {
-        
+        File mDir = new File("DifferencesList");
+        if(!mDir.exists()){
+            mDir.mkdirs();
+        }
     }
 
 }
