@@ -30,7 +30,7 @@ public class Architecture implements IArchitecture {
         // tLinks = new HashMap<String, TraceabilityLink>();
         tLinks = new Vector<TraceabilityLink>();
 
-        id = archname + System.currentTimeMillis();
+        id = archname + " " + System.currentTimeMillis();
         this.archname = archname;
     }
 
@@ -80,7 +80,7 @@ public class Architecture implements IArchitecture {
                     result += ", ";
             }
         }
-        result += "\n";
+        result += "\n\n";
         
         for(int i=0;i<this.viewlist.length;i++){
             if(viewlist[i] != null){
@@ -91,7 +91,7 @@ public class Architecture implements IArchitecture {
                     result += model.overallInformation();
                     result += "\n";
                 }
-                result = "\n\n";
+                result += "\n\n";
             }
         }
         

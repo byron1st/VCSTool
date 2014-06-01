@@ -53,6 +53,9 @@ public class Reader extends DefaultHandler{
             String dstID = (String)list.get(2);
 
             Relation relation = new Relation((RelationType)list.get(0), getElementByID(srcID), getElementByID(dstID)); //type, source, dst
+            //srcID에 해당하는 element에 relation 추가
+            m.serachElementByID(srcID).addRelation(relation);
+            
             m.addRelation(relation);
         }
         

@@ -38,7 +38,7 @@ public class XMLParsingRules{
     
     public void executeReadRule(Model_XML modelXML, Traceability_XML tLinkXML, String qName, Attributes attributes){
         if (qName.equals("XMI")){
-            modelXML.setId(attributes.getValue("timestamp"));
+            modelXML.setId(attributes.getValue("timestamp"));   //project id
         }
         else if(qName.equals("UML:Type")){
             String type = attributes.getValue("name");
@@ -125,7 +125,7 @@ public class XMLParsingRules{
         }
     }
     
-    public void executeWriteRule(Architecture arch){
+    public void executeWriteRule(Architecture arch, String dir){
       //XMLWriter variables
         try{
             DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance(); 
@@ -251,7 +251,7 @@ public class XMLParsingRules{
                 transformer.setOutputProperty(OutputKeys.INDENT, "yes");        
                 
                 DOMSource source = new DOMSource(doc); 
-                StreamResult result = new StreamResult(new FileOutputStream(new File("version1.1/Model/"+vType.toString()+"_"+archModel.getId()+".xml"))); 
+                StreamResult result = new StreamResult(new FileOutputStream(new File(dir + "/Model/"+vType.toString()+"_"+archModel.getId()+".xml"))); 
          
                 transformer.transform(source, result);
             }
@@ -313,7 +313,7 @@ public class XMLParsingRules{
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");        
             
             DOMSource source = new DOMSource(doc); 
-            StreamResult result = new StreamResult(new FileOutputStream(new File("version1.1/Traceability/traceability.xml"))); 
+            StreamResult result = new StreamResult(new FileOutputStream(new File(dir + "/Traceability/traceability.xml"))); 
      
             transformer.transform(source, result);
             

@@ -86,7 +86,7 @@ public class ArchitectureElement {
     }
     
     public String getInformation(){
-        String result = "ID: " + this.id + " . " + this.name;
+        String result = "ID: " + this.id + " , " + this.name;
         return result;
     }
     
