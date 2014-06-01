@@ -9,3 +9,7 @@ bin/
 .classpath
 
 .project
+
+vcstool.sublime-project
+
+vcstool.sublime-workspace
