@@ -11,14 +11,21 @@ public class VCSFuncionManager implements IVCSFunctions{
     }
 
     @Override
-    public String checkoutRecentArchitecture() {
+    public String showRecentArchitecture() {
         // TODO Auto-generated method stub
-        return manager.requestCheckout();
+        return manager.requestInform();
     }
 
     @Override
     public void commitWorkingArchitecture() {
         // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void checkoutRecentArchitecture(String path) {
+        // TODO Auto-generated method stub
+        manager.requestCheckout(path);
         
     }
     

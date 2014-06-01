@@ -12,8 +12,14 @@ public class APIManager implements IArchitectureAPI{
     }
     
     @Override
-    public String checkoutRecentArchitecture() {
-        return vmanager.checkoutRecentArchitecture();
+    public String showRecentArchitecture() {
+        return vmanager.showRecentArchitecture();
+    }
+
+    @Override
+    public String checkoutRecentArchitecture(String path) {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }

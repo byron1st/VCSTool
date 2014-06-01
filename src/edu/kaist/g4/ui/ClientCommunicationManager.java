@@ -10,7 +10,11 @@ public class ClientCommunicationManager {
         this.manger = manager;
     }
     
-    public String requestCheckout(){
-        return this.manger.checkoutRecentArchitecture();
+    public String requestInform(){
+        return this.manger.showRecentArchitecture();
+    }
+    
+    public void requestCheckout(String path){
+        this.manger.checkoutRecentArchitecture(path);
     }
 }

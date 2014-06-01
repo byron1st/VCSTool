@@ -54,13 +54,21 @@ public class ArchitectureVersionManager implements IArchitectureVersionManager{
 
 
     @Override
-    public String checkoutRecentArchitecture() {
+    public String showRecentArchitecture() {
         // TODO Auto-generated method stub
         if(recentArchitecture == null)
             recentArchitecture = fileManager.readRecentArchitecture();
         
         return recentArchitecture.overallInformation();
         
+    }
+
+
+
+    @Override
+    public String getRecentArchPath() {
+        // TODO Auto-generated method stub
+        return null;
     }
     
     

@@ -9,8 +9,13 @@ public class CommunicationManager {
         manager = new APIManager();
     }
     
-    public String checkoutRecentArchitecture(){
-        return manager.checkoutRecentArchitecture();
+    public String showRecentArchitecture(){
+        return manager.showRecentArchitecture();
+    }
+
+    public void checkoutRecentArchitecture(String path) {
+        // TODO Auto-generated method stub
+        manager.checkoutRecentArchitecture(path);
     }
     
 }

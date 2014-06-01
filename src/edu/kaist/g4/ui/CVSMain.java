@@ -25,9 +25,12 @@ public class CVSMain {
 	                if(line.indexOf("exit") != -1) {
 	                    System.exit(0);
 	                }
-	                else if(line.equals("checkout")){
-	                    String output = vcsf.checkoutRecentArchitecture();
+	                else if(line.equals("show")){
+	                    String output = vcsf.showRecentArchitecture();
 	                    System.out.println(output);
+	                }
+	                else if(line.equals("checkout")){
+	                    
 	                }
 	            }
 	        } catch (IOException e) {
@@ -38,7 +41,7 @@ public class CVSMain {
 	    case 1:
 	        if(args[0].equals("checkout"))
 	        {
-	            String output = vcsf.checkoutRecentArchitecture();
+	            String output = vcsf.showRecentArchitecture();
 	            System.out.println(output);
 	        }
 	        break;

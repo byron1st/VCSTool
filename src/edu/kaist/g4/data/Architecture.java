@@ -84,7 +84,7 @@ public class Architecture implements IArchitecture {
         
         for(int i=0;i<this.viewlist.length;i++){
             if(viewlist[i] != null){
-                result += ViewType.values()[i].toString() + " Views Information\n";
+                result += ViewType.values()[i].toString() + " Views Information\n\n";
                 Iterator<ArchitectureModel>it = viewlist[i].iterator();
                 while(it.hasNext()){
                     ArchitectureModel model = it.next();
@@ -104,13 +104,13 @@ public class Architecture implements IArchitecture {
     }
 
     @Override
-    public ArchitectureModel getView(ViewType type, String name) {
+    public ArchitectureModel getView(ViewType type, String ID) {
 
         Iterator<ArchitectureModel> it = viewlist[type.ordinal()].iterator();
         ArchitectureModel el;
         while (it.hasNext()) {
             el = it.next();
-            if (el.getName().equals(name))
+            if (el.getId().equals(ID))
                 return el;
         }
         return null;
