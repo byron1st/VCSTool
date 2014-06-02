@@ -10,7 +10,7 @@ public class VersionInfoTracer implements IVersionInfoTracer{
         this.diffList = currentDiffList;
     }
     
-    public String orderCommand(String command) {
+    public String printAllDiffs(String parameter) {
         String printedMessage = "";
         
         //TODO: Algorithm to process the command.

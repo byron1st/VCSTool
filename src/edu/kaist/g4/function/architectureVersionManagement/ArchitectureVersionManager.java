@@ -61,7 +61,6 @@ public class ArchitectureVersionManager implements IArchitectureVersionManager{
 
     @Override
     public String checkoutRecentArchitecture() {
-        // TODO Auto-generated method stub
         if(recentArchitecture == null)
             recentArchitecture = fileManager.readRecentArchitecture();
         
@@ -72,11 +71,16 @@ public class ArchitectureVersionManager implements IArchitectureVersionManager{
 
 
     @Override
-    public String traceVersionInfoWith(String command) {
+    public String traceVersionInfoWith(String command, String parameter) {
         if(currentDiffList == null)
             currentDiffList = fileManager.readDiffList();
         IVersionInfoTracer versionInfoTracer = new VersionInfoTracer(currentDiffList);
-        return versionInfoTracer.orderCommand(command);
+        String printedMessage = "";
+        if(command.equals("ViewAll")) //TODO: 향후 Enum으로 변경.
+            printedMessage = versionInfoTracer.printAllDiffs(parameter);
+        else
+            printedMessage = "This is not a supported command."; //TODO: 향후 메세지들 한 곳에 모으기.
+        return printedMessage;
     }
     
     

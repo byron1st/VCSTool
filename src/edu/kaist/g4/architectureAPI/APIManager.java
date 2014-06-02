@@ -17,8 +17,8 @@ public class APIManager implements IArchitectureAPI{
     }
 
     @Override
-    public String traceVersionInfoWith(String command) {
-        String messageForConsoleWindow = vmanager.traceVersionInfoWith(command);
+    public String traceVersionInfoWith(String command, String parameter) {
+        String messageForConsoleWindow = vmanager.traceVersionInfoWith(command, parameter);
         return messageForConsoleWindow;
     }
 
