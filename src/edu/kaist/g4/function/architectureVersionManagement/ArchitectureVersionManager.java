@@ -26,10 +26,14 @@ import edu.kaist.g4.function.fileManager.IFileManager;
 public class ArchitectureVersionManager implements IArchitectureVersionManager{
     
     //TODO: 차후 수정.
+    //TODO: Constructor에서 초기화하는 걸로 수정.
     IFileManager fileManager = new FileManager();
     
     //checkout에서도 recentArchitecture를 사용하기 때문에 멤버변수로 선언
     Architecture recentArchitecture;
+    
+    //diff 요청할 때마다 filemanager를 불러오는걸 막기 위해 멤버변수로 선언
+    ArchitecturalDifferentiations currentDiffList;
    
     
     
@@ -63,6 +67,16 @@ public class ArchitectureVersionManager implements IArchitectureVersionManager{
         
         return recentArchitecture.overallInformation();
         
+    }
+
+
+
+    @Override
+    public String traceVersionInfoWith(String command) {
+        if(currentDiffList == null)
+            currentDiffList = fileManager.readDiffList();
+        IVersionInfoTracer versionInfoTracer = new VersionInfoTracer(currentDiffList);
+        return versionInfoTracer.orderCommand(command);
     }
     
     

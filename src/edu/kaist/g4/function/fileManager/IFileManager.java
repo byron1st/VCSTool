@@ -38,4 +38,12 @@ public interface IFileManager {
      * @param addedArchitecturalDifferentiations
      */
     public void appendDiffList(ArchitecturalDifferentiations addedArchitecturalDifferentiations);
+
+    /**
+     * @Method Name : readDiffList
+     * @Detail      : Diff 리스트를 파일에서 읽어오는 함수
+     *
+     * @return
+     */
+    public ArchitecturalDifferentiations readDiffList();
 }

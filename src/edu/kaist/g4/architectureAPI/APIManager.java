@@ -16,4 +16,10 @@ public class APIManager implements IArchitectureAPI{
         return vmanager.checkoutRecentArchitecture();
     }
 
+    @Override
+    public String traceVersionInfoWith(String command) {
+        String messageForConsoleWindow = vmanager.traceVersionInfoWith(command);
+        return messageForConsoleWindow;
+    }
+
 }
