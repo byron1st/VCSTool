@@ -109,17 +109,21 @@ public class ArchitectureModel {
     }
     
     public String overallInformation(){
-        String result = "Elements List\n";
+        String result = "Model name: " + this.name + "\n";
+        result += "Model ID: "+ this.id + "\n";
+        
+        result += "Elements List\n";
         Iterator<ArchitectureElement> it = elements.values().iterator();
         while(it.hasNext()){
             ArchitectureElement ae = it.next();
             result += ae.getInformation() + "\n";
         }
+        result += "\n";
         result += "Relation List\n";
         Iterator<Relation> it2 = this.relations.iterator();
         while(it2.hasNext()){
             Relation r = it2.next();
-            result += r.getInformation();
+            result += r.getInformation() +"\n";
         }
         
         return result;

@@ -60,7 +60,8 @@ public class ArchitectureVersionManager implements IArchitectureVersionManager{
 
 
     @Override
-    public String checkoutRecentArchitecture() {
+    public String showRecentArchitecture() {
+        // TODO Auto-generated method stub
         if(recentArchitecture == null)
             recentArchitecture = fileManager.readRecentArchitecture();
         
@@ -81,6 +82,11 @@ public class ArchitectureVersionManager implements IArchitectureVersionManager{
         else
             printedMessage = "This is not a supported command."; //TODO: 향후 메세지들 한 곳에 모으기.
         return printedMessage;
+    }
+    
+    public String getRecentArchPath() {
+        // TODO Auto-generated method stub
+        return null;
     }
     
     

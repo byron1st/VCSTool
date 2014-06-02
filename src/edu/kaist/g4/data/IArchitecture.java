@@ -34,6 +34,7 @@ public interface IArchitecture {
      * @return
      */
     public Vector<ArchitectureModel> getArchitectureModels();
+    public ArchitectureModel getArchitectureModelById(String ID);
     
     
 }

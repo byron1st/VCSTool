@@ -84,7 +84,7 @@ public class Architecture implements IArchitecture {
         
         for(int i=0;i<this.viewlist.length;i++){
             if(viewlist[i] != null){
-                result += ViewType.values()[i].toString() + " Views Information\n";
+                result += ViewType.values()[i].toString() + " Views Information\n\n";
                 Iterator<ArchitectureModel>it = viewlist[i].iterator();
                 while(it.hasNext()){
                     ArchitectureModel model = it.next();
@@ -104,13 +104,13 @@ public class Architecture implements IArchitecture {
     }
 
     @Override
-    public ArchitectureModel getView(ViewType type, String name) {
+    public ArchitectureModel getView(ViewType type, String ID) {
 
         Iterator<ArchitectureModel> it = viewlist[type.ordinal()].iterator();
         ArchitectureModel el;
         while (it.hasNext()) {
             el = it.next();
-            if (el.getName().equals(name))
+            if (el.getId().equals(ID))
                 return el;
         }
         return null;
@@ -223,6 +223,21 @@ public class Architecture implements IArchitecture {
 
     public void settLinks(Vector<TraceabilityLink> tLinks) {
         this.tLinks = tLinks;
+    }
+
+    @Override
+    public ArchitectureModel getArchitectureModelById(String ID) {
+        // TODO Auto-generated method stub
+        for(int i=0;i<this.viewlist.length;i++){
+            Vector<ArchitectureModel> list = viewlist[i];
+            Iterator<ArchitectureModel> it = list.iterator();
+            while(it.hasNext()){
+                ArchitectureModel m = it.next();
+                if(m.getId().equals(ID))
+                    return m;
+            }
+        }
+        return null;
     }
 
 
