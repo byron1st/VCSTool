@@ -225,6 +225,21 @@ public class Architecture implements IArchitecture {
         this.tLinks = tLinks;
     }
 
+    @Override
+    public ArchitectureModel getArchitectureModelById(String ID) {
+        // TODO Auto-generated method stub
+        for(int i=0;i<this.viewlist.length;i++){
+            Vector<ArchitectureModel> list = viewlist[i];
+            Iterator<ArchitectureModel> it = list.iterator();
+            while(it.hasNext()){
+                ArchitectureModel m = it.next();
+                if(m.getId().equals(ID))
+                    return m;
+            }
+        }
+        return null;
+    }
+
 
 
 }
