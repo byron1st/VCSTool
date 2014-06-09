@@ -14,8 +14,11 @@ public class CommunicationManager {
     }
 
     public void checkoutRecentArchitecture(String path) {
-        // TODO Auto-generated method stub
-        manager.checkoutRecentArchitecture(path);
+        try{
+            manager.checkoutRecentArchitecture(path);
+        }catch(Exception e){
+            System.out.println(e.toString());
+        }
     }
     
 }

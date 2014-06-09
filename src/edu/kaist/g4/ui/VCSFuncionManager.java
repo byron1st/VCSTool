@@ -12,7 +12,6 @@ public class VCSFuncionManager implements IVCSFunctions{
 
     @Override
     public String showRecentArchitecture() {
-        // TODO Auto-generated method stub
         return manager.requestInform();
     }
 
@@ -24,7 +23,6 @@ public class VCSFuncionManager implements IVCSFunctions{
 
     @Override
     public void checkoutRecentArchitecture(String path) {
-        // TODO Auto-generated method stub
         manager.requestCheckout(path);
         
     }
