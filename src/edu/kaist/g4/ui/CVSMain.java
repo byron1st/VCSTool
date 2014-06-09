@@ -1,6 +1,7 @@
 package edu.kaist.g4.ui;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
@@ -30,7 +31,20 @@ public class CVSMain {
 	                    System.out.println(output);
 	                }
 	                else if(line.equals("checkout")){
+	                
+	                    String path_input = null;
+	                    System.out.println("Type path :");
+	                    File file = null;
+	                    while(file == null || !file.exists()){
 	                    
+	                    System.out.println("Copy to "); 
+	                    path_input =br.readLine();
+	                    file = new File(path_input);
+	                    
+	                    }
+	                    vcsf.checkoutRecentArchitecture(path_input);
+	                    
+	                    System.out.println("Complete Checkout");
 	                }
 	            }
 	        } catch (IOException e) {
@@ -39,11 +53,11 @@ public class CVSMain {
 	        }
 	        break;
 	    case 1:
-	        if(args[0].equals("checkout"))
-	        {
-	            String output = vcsf.showRecentArchitecture();
-	            System.out.println(output);
-	        }
+//	        if(args[0].equals("checkout"))
+//	        {
+//	            String output = vcsf.showRecentArchitecture();
+//	            System.out.println(output);
+//	        }
 	        break;
 	    }
 	

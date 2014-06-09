@@ -82,7 +82,7 @@ public class ArchitectureVersionManager implements IArchitectureVersionManager{
     
     public String getRecentArchPath() {
         // TODO Auto-generated method stub
-        return null;
+        return "RecentArchitecture";
     }
     
     
