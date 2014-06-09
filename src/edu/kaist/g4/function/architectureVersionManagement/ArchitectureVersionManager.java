@@ -47,17 +47,15 @@ public class ArchitectureVersionManager implements IArchitectureVersionManager{
         INewVersionGenerator newVersionGenerator = new NewVersionGenerator(workingArchitecture, recentArchitecture);
         Vector<ArchitectureChange> architectureChange = newVersionGenerator.buildNewVersion();
         
-        //TODO: Change Dicision에 관련된 내용을 여기에 넣기
+        //TODO: Change Decision에 관련된 내용을 여기에 넣기
         
-        workingArchitecture = fileManager.readWorkingArchitecture(dirPathforNewArchitecture);   //깊은 복사가 없어서 일단 다시 불러옴
+//        workingArchitecture = fileManager.readWorkingArchitecture(dirPathforNewArchitecture);   //깊은 복사가 없어서 일단 다시 불러옴
         ArchitecturalDifferentiations newDiffList = new ArchitecturalDifferentiations(null, architectureChange);
         
         fileManager.writeNewRecentArchitecture(workingArchitecture);
         fileManager.appendDiffList(newDiffList);
 
     }
-
-
 
     @Override
     public String showRecentArchitecture() {
@@ -68,8 +66,6 @@ public class ArchitectureVersionManager implements IArchitectureVersionManager{
         return recentArchitecture.overallInformation();
         
     }
-
-
 
     @Override
     public String traceVersionInfoWith(String command, String parameter) {

@@ -32,6 +32,9 @@ public class NewVersionGenerator implements INewVersionGenerator{
         Vector<ArchitectureModel> workingModels = workingArchitecture.getArchitectureModels();
         Vector<ArchitectureModel> recentModels = recentArchitecture.getArchitectureModels();
         
+ //       Vector<ArchitectureModel> workingModelsClone = (Vector<ArchitectureModel>)workingModels.clone();
+ //       Vector<ArchitectureModel> recentModelsClone = (Vector<ArchitectureModel>)recentModels.clone();
+        
         Vector<ArchitectureChange> archiChanges = new GraphComparer().Compare(recentModels, workingModels);
     
         return archiChanges;

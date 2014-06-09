@@ -30,9 +30,14 @@ public class GraphComparer {
             String modelAId = modelA.getId();
             ArchitectureModel targetModel = getArchitectureModelById(modelsB, modelAId);
             if(targetModel == null){
-                //해당 모델은 delete된 것임
-                ArchitectureChange change = new ArchitectureChange(ChangeOperationTypes.DELETE, "(Model) "+modelA.getId(), null); //model은 아직 적절한 name이 없어서 id로 표기 
-                archiChanges.add(change);
+                //해당 모델은 delete된 것임                
+                Collection<ArchitectureElement> modelAElements = modelA.getElements().values();
+
+                for (ArchitectureElement modelAElement : modelAElements) {
+                    ArchitectureChange change = new ArchitectureChange(ChangeOperationTypes.DELETE, "(Element) " + modelAElement.getName(), null);
+                    archiChanges.add(change);
+                }
+                modelsB.removeElement(modelA);
             }
             else{
                 //modify된 model들 (model이 modify되었다는 내용은 따로 기록 안함)
@@ -104,15 +109,20 @@ public class GraphComparer {
                 modelsB.removeElement(targetModel);
             }
         }
-        //남이있는 workingModel은 모두 add된 것들임
-        for(ArchitectureModel modelB : modelsB){
-            ArchitectureChange change = new ArchitectureChange(ChangeOperationTypes.ADD, "(Model) "+modelB.getId(), null); 
-            archiChanges.add(change);
+        // 남이있는 workingModel은 모두 add된 것들임
+        for (ArchitectureModel modelB : modelsB) {
+            Collection<ArchitectureElement> modelBElements = modelB.getElements().values();
+
+            for (ArchitectureElement modelBElement : modelBElements) {
+                ArchitectureChange change = new ArchitectureChange(ChangeOperationTypes.ADD, "(Element) " + modelBElement.getName(), null);
+                archiChanges.add(change);
+            }
+            modelsB.removeElement(modelB);
         }
-        
+
         return archiChanges;
     }
-    
+
     public ArchitectureModel getArchitectureModelById(Vector<ArchitectureModel> modelsB, String modelAId){
         for(ArchitectureModel workingModel : modelsB){
             if(workingModel.getId().equals(modelAId)){
