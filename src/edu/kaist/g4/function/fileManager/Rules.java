@@ -20,6 +20,7 @@ import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 import org.xml.sax.Attributes;
 
 import edu.kaist.g4.data.Architecture;
@@ -30,8 +31,10 @@ import edu.kaist.g4.data.Relation;
 import edu.kaist.g4.data.RelationType;
 import edu.kaist.g4.data.TraceabilityLink;
 import edu.kaist.g4.data.ViewType;
+import edu.kaist.g4.data.architecturalDifferentiations.ArchitecturalDifferentiations;
+import edu.kaist.g4.data.architecturalDifferentiations.ArchitectureChange;
 
-public class XMLParsingRules{
+public class Rules{
     private String linkSrcId;
     private ArrayList<Object> linkDstId;
     private Vector<String> dstIdList;
@@ -139,6 +142,7 @@ public class XMLParsingRules{
             Vector<ArchitectureModel> archModels = arch.getArchitectureModels();
             for(ArchitectureModel archModel : archModels){
                 Document doc = docBuilder.newDocument();
+
                 Element childElement = null;
                 Element rootElement;
                 Attr attr;
@@ -332,6 +336,77 @@ public class XMLParsingRules{
         }catch(FileNotFoundException fnfe){
             fnfe.printStackTrace();
         }
+    }
+    
+    public void appendDiffList(ArchitecturalDifferentiations diffList, String dir){
+        try{
+            DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance(); 
+            DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+            Document doc = docBuilder.newDocument();
+            Element rootElement, segmentElement;
+            Attr attr;
+            
+            File diffFile = new File(dir + "/Differences.xml");
+            
+            if(diffFile.exists() == false){
+                //root element
+                rootElement = doc.createElement("Revision");
+                attr = doc.createAttribute("timestamp");
+                attr.setValue(Long.toString(System.currentTimeMillis()));
+                rootElement.setAttributeNode(attr);
+                attr = doc.createAttribute("xmlns:Revision");
+                attr.setValue("blank");
+                rootElement.setAttributeNode(attr);
+                doc.appendChild(rootElement);
+            }
+            else{
+                doc = docBuilder.parse(diffFile);
+                rootElement = doc.getDocumentElement();
+            }
+            segmentElement = doc.createElement("segment");
+            rootElement.appendChild(segmentElement);
+            attr = doc.createAttribute("timestamp");
+            attr.setValue(Long.toString(System.currentTimeMillis()));
+            segmentElement.setAttributeNode(attr);
+            
+            Vector<ArchitectureChange> changes = diffList.getArchitectureChanges();
+            for(ArchitectureChange change : changes){
+                Element diffElement = doc.createElement("difference");
+                attr = doc.createAttribute("name");
+                attr.setValue(change.getParameter());
+                diffElement.setAttributeNode(attr);
+                
+                attr = doc.createAttribute("operation");
+                attr.setValue(change.getChangeOperation().toString());
+                diffElement.setAttributeNode(attr);
+                
+                attr = doc.createAttribute("message");
+                attr.setValue(change.getMessage());
+                diffElement.setAttributeNode(attr);
+                
+                segmentElement.appendChild(diffElement);
+            }
+            
+            // XML write 
+            TransformerFactory transformerFactory = TransformerFactory.newInstance(); 
+            Transformer transformer = transformerFactory.newTransformer(); 
+     
+            transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8"); 
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");        
+            
+            DOMSource source = new DOMSource(doc); 
+            StreamResult result = new StreamResult(new FileOutputStream(new File(dir + "/Differences.xml"))); 
+     
+            transformer.transform(source, result);
+
+            
+        }catch(ParserConfigurationException pce){
+            pce.printStackTrace();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        
+        
     }
 }
  

@@ -3,13 +3,14 @@ package edu.kaist.g4.function.fileManager;
 import java.io.File;
 
 import edu.kaist.g4.data.Architecture;
+import edu.kaist.g4.data.architecturalDifferentiations.ArchitecturalDifferentiations;
 
 
 public class Writer{
-    private XMLParsingRules parsingRule;
+    private Rules rule;
     
     public Writer(){
-        parsingRule = new XMLParsingRules();
+        rule = new Rules();
     }
     public void writeArchitecture(Architecture arch, String dir){
         File mDir = new File(dir+"/Model");
@@ -20,7 +21,15 @@ public class Writer{
         if(!tDir.exists()){
             tDir.mkdirs();
         }
-        parsingRule.executeWriteRule(arch, dir);
+        rule.executeWriteRule(arch, dir);
+    }
+    
+    public void writeDiffList(ArchitecturalDifferentiations diffList, String dir){
+        File cDir = new File(dir);
+        if(!cDir.exists()){
+            cDir.mkdirs();
+        }
+        rule.appendDiffList(diffList, dir);
     }
 }
  

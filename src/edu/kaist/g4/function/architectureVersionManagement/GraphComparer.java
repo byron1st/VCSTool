@@ -61,13 +61,14 @@ public class GraphComparer {
                     else{
                         //element -> modify or same
                         //modelAElement와 targetElement를 비교 수행
+                        int revisionNo = targetElement.getRevision();
                         if(!modelAElement.getType().toString().equals(targetElement.getType().toString())){
                             ArchitectureChange change = new ArchitectureChange(ChangeOperationTypes.MODIFY, "(Element) "+modelA.getId());
                             change.setMessage(modelAElement.getType().toString() + " -> " + targetElement.getType().toString());
                             archiChanges.add(change);
                             
                             ArchitectureModel workingModel = workingArchitecture.getArchitectureModelById(targetModel.getId());
-                            int revisionNo = targetElement.getRevision();
+                            
                             workingModel.serachElementByID(targetElement.getId()).setRevision(revisionNo+1);
                         }
                         if(!modelAElement.getName().equals(targetElement.getName())){
@@ -76,7 +77,6 @@ public class GraphComparer {
                             archiChanges.add(change);
                             
                             ArchitectureModel workingModel = workingArchitecture.getArchitectureModelById(targetModel.getId());
-                            int revisionNo = targetElement.getRevision();
                             workingModel.serachElementByID(targetElement.getId()).setRevision(revisionNo+1);
                         }
                         Vector<Relation> modelARelations = modelAElement.getRelations();
@@ -92,7 +92,6 @@ public class GraphComparer {
                                 archiChanges.add(change);
                                 
                                 ArchitectureModel workingModel = workingArchitecture.getArchitectureModelById(targetModel.getId());
-                                int revisionNo = targetElement.getRevision();
                                 workingModel.serachElementByID(targetElement.getId()).setRevision(revisionNo+1);
                             }
                             else{
@@ -103,7 +102,6 @@ public class GraphComparer {
                                     archiChanges.add(change);
                                     
                                     ArchitectureModel workingModel = workingArchitecture.getArchitectureModelById(targetModel.getId());
-                                    int revisionNo = targetElement.getRevision();
                                     workingModel.serachElementByID(targetElement.getId()).setRevision(revisionNo+1);
                                 }
                                 
@@ -118,7 +116,6 @@ public class GraphComparer {
                             archiChanges.add(change);
                             
                             ArchitectureModel workingModel = workingArchitecture.getArchitectureModelById(targetModel.getId());
-                            int revisionNo = targetElement.getRevision();
                             workingModel.serachElementByID(targetElement.getId()).setRevision(revisionNo+1);
                         }
                         

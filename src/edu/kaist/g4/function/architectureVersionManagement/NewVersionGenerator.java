@@ -5,7 +5,7 @@ import java.util.Vector;
 import edu.kaist.g4.data.Architecture;
 import edu.kaist.g4.data.ArchitectureModel;
 import edu.kaist.g4.data.architecturalDifferentiations.ArchitectureChange;
-import edu.kaist.g4.function.fileManager.XMLParsingRules;
+import edu.kaist.g4.function.fileManager.Rules;
 
 /**
  * 
@@ -19,7 +19,7 @@ import edu.kaist.g4.function.fileManager.XMLParsingRules;
 public class NewVersionGenerator implements INewVersionGenerator{
     Architecture workingArchitecture;
     Architecture recentArchitecture;
-    XMLParsingRules rule;
+    Rules rule;
     
     public NewVersionGenerator(Architecture workingArchitecture, Architecture recentArchitecture) {
         this.workingArchitecture = workingArchitecture;

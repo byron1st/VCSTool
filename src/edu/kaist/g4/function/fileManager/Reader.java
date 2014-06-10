@@ -20,7 +20,7 @@ public class Reader extends DefaultHandler{
     private Model_XML modelXML;
     private Traceability_XML tLinkXML;
     private Architecture arch;
-    private XMLParsingRules parsingRule;
+    private Rules parsingRule;
     private ArchitectureModel m;
     private String text;
     
@@ -103,7 +103,7 @@ public class Reader extends DefaultHandler{
     public void startDocument() throws SAXException {  
         modelXML = new Model_XML();
         tLinkXML = new Traceability_XML();
-        parsingRule = new XMLParsingRules();
+        parsingRule = new Rules();
     }  
 
     @Override
