@@ -61,12 +61,14 @@ public class XMLParsingRules{
             ArrayList<Object> list = new ArrayList<Object>();
             list.add(ElementType.MODULE);
             list.add(attributes.getValue("name"));
+            list.add(attributes.getValue("VersionNo"));
             modelXML.getElements().put(attributes.getValue("xmi.id"), list);
         }
         else if(qName.equals("UML:Package")) {          //하위 class 읽을 필요
             ArrayList<Object> list = new ArrayList<Object>();
             list.add(ElementType.PACKAGE);               
             list.add(attributes.getValue("name"));
+            list.add(attributes.getValue("VersionNo"));
             modelXML.getElements().put(attributes.getValue("xmi.id"), list);
         }
         else if(qName.equals("UML:Generalization")){
@@ -88,12 +90,14 @@ public class XMLParsingRules{
             ArrayList<Object> list = new ArrayList<Object>();
             list.add(ElementType.COMPONENT);
             list.add(attributes.getValue("name"));
+            list.add(attributes.getValue("VersionNo"));
             modelXML.getElements().put(attributes.getValue("xmi.id"), list);
         }
         else if(qName.equals("UML:Connector")){
             ArrayList<Object> list = new ArrayList<Object>();
             list.add(ElementType.CONNECTOR);
             list.add(attributes.getValue("name"));
+            list.add(attributes.getValue("VersionNo"));
             modelXML.getElements().put(attributes.getValue("xmi.id"), list);
         }
         else if(qName.equals("UML:Association")){
@@ -195,6 +199,10 @@ public class XMLParsingRules{
                     
                     attr = doc.createAttribute("xmi.id");   //xmi.id
                     attr.setValue(archElement.getId());
+                    childElement.setAttributeNode(attr);
+                    
+                    attr = doc.createAttribute("revisionNo");   //# of revision
+                    attr.setValue(Integer.toString(archElement.getRevision()));
                     childElement.setAttributeNode(attr);
                     
                     typeElement.appendChild(childElement);

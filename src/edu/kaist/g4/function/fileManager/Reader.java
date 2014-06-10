@@ -15,7 +15,6 @@ import edu.kaist.g4.data.ArchitectureModel;
 import edu.kaist.g4.data.ElementType;
 import edu.kaist.g4.data.Relation;
 import edu.kaist.g4.data.RelationType;
-import edu.kaist.g4.data.TraceabilityLink;
 
 public class Reader extends DefaultHandler{
     private Model_XML modelXML;
@@ -23,7 +22,6 @@ public class Reader extends DefaultHandler{
     private Architecture arch;
     private XMLParsingRules parsingRule;
     private ArchitectureModel m;
-    private TraceabilityLink t;
     private String text;
     
     public Reader(){
@@ -42,6 +40,10 @@ public class Reader extends DefaultHandler{
             ae.setId(str);
             ae.setType((ElementType)list.get(0));
             ae.setName((String)list.get(1));
+            String versionNo = (String)list.get(2);
+            if(versionNo != null){
+                ae.setRevision(Integer.parseInt((String)list.get(2)));
+            }
             m.addArchitectureElement(ae);
         }
         

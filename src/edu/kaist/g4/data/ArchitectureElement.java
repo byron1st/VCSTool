@@ -24,6 +24,13 @@ public class ArchitectureElement {
         attributes = new HashMap<AttributeType,Attribute>();
         relations = new Vector<Relation>();
     }
+
+    public ArchitectureElement(ArchitectureElement element){
+        name = new String(element.getName());
+        id = new String(element.getId());
+        revision = element.revision;
+        type = element.getType();
+    }
     
     public ArchitectureElement(String name, String id, int revision, ElementType type){
         this.name = name;

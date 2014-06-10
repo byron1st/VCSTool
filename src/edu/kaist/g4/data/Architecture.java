@@ -1,6 +1,5 @@
 package edu.kaist.g4.data;
 
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Vector;
 
@@ -34,6 +33,26 @@ public class Architecture implements IArchitecture {
         this.archname = archname;
     }
 
+    public Architecture(Architecture arch){
+        archname = new String(arch.getArchname());
+        id = new String(arch.getId());
+
+        viewlist = new Vector[ViewType.values().length];
+        for (int i = 0; i < viewlist.length; i++) {
+            viewlist[i] = new Vector<ArchitectureModel>();
+            Vector<ArchitectureModel>[] list = arch.getViewlist();
+            for(ArchitectureModel model : list[i]){
+                ArchitectureModel modelClone = new ArchitectureModel(model);              
+                viewlist[i].add(modelClone);
+            }
+        }
+        Vector<TraceabilityLink> links = arch.gettLinks();
+        for(TraceabilityLink link : links){
+            TraceabilityLink linkClone = new TraceabilityLink(link);
+            tLinks.add(linkClone);
+        }
+        
+    }
     @Override
     public void addArchitectureModel(ViewType type, ArchitectureModel model) {
 

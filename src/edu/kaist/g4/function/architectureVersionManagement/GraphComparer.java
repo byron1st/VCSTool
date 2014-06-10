@@ -3,21 +3,13 @@ package edu.kaist.g4.function.architectureVersionManagement;
 import java.util.Collection;
 import java.util.Vector;
 
+import edu.kaist.g4.data.Architecture;
 import edu.kaist.g4.data.ArchitectureElement;
 import edu.kaist.g4.data.ArchitectureModel;
 import edu.kaist.g4.data.Relation;
 import edu.kaist.g4.data.architecturalDifferentiations.ArchitectureChange;
 import edu.kaist.g4.data.architecturalDifferentiations.ChangeOperationTypes;
 
-/**
- * 
- * @FileName : GraphComparer.java
- * @Package  : edu.kaist.g4.function.architectureVersionManagement
- * @Author   : Hwi Ahn (ahnhwi@kaist.ac.kr)
- * @Date     : 2014
- * @Detail   :
- * 
- */
 public class GraphComparer {
     Vector<ArchitectureChange> archiChanges;
     
@@ -25,10 +17,22 @@ public class GraphComparer {
         archiChanges = new Vector<ArchitectureChange>();
     }
     
-    public Vector<ArchitectureChange> Compare(Vector<ArchitectureModel> modelsA, Vector<ArchitectureModel> modelsB){
-        for(ArchitectureModel modelA : modelsA){
+    public Vector<ArchitectureChange> Compare(Architecture recentArchitecture, Architecture workingArchitecture){
+ 
+        Architecture workingArchClone = new Architecture(workingArchitecture);
+        Architecture recentArchClone = new Architecture(recentArchitecture);
+ 
+        
+        Vector<ArchitectureModel> workingModels = workingArchClone.getArchitectureModels();
+        Vector<ArchitectureModel> recentModels = recentArchClone.getArchitectureModels();
+        
+        Vector<ArchitectureModel> modelsAClone = (Vector<ArchitectureModel>)recentModels.clone();
+        Vector<ArchitectureModel> modelsBClone = (Vector<ArchitectureModel>)workingModels.clone();
+        
+        
+        for(ArchitectureModel modelA : modelsAClone){
             String modelAId = modelA.getId();
-            ArchitectureModel targetModel = getArchitectureModelById(modelsB, modelAId);
+            ArchitectureModel targetModel = getArchitectureModelById(modelsBClone, modelAId);
             if(targetModel == null){
                 //해당 모델은 delete된 것임                
                 Collection<ArchitectureElement> modelAElements = modelA.getElements().values();
@@ -37,7 +41,7 @@ public class GraphComparer {
                     ArchitectureChange change = new ArchitectureChange(ChangeOperationTypes.DELETE, "(Element) " + modelAElement.getName(), null);
                     archiChanges.add(change);
                 }
-                modelsB.removeElement(modelA);
+//                modelsBClone.removeElement(modelA);
             }
             else{
                 //modify된 model들 (model이 modify되었다는 내용은 따로 기록 안함)
@@ -61,11 +65,19 @@ public class GraphComparer {
                             ArchitectureChange change = new ArchitectureChange(ChangeOperationTypes.MODIFY, "(Element) "+modelA.getId());
                             change.setMessage(modelAElement.getType().toString() + " -> " + targetElement.getType().toString());
                             archiChanges.add(change);
+                            
+                            ArchitectureModel workingModel = workingArchitecture.getArchitectureModelById(targetModel.getId());
+                            int revisionNo = targetElement.getRevision();
+                            workingModel.serachElementByID(targetElement.getId()).setRevision(revisionNo+1);
                         }
                         if(!modelAElement.getName().equals(targetElement.getName())){
                             ArchitectureChange change = new ArchitectureChange(ChangeOperationTypes.MODIFY, "(Element) "+modelA.getId());
                             change.setMessage(modelAElement.getName() + " -> " + targetElement.getName());
                             archiChanges.add(change);
+                            
+                            ArchitectureModel workingModel = workingArchitecture.getArchitectureModelById(targetModel.getId());
+                            int revisionNo = targetElement.getRevision();
+                            workingModel.serachElementByID(targetElement.getId()).setRevision(revisionNo+1);
                         }
                         Vector<Relation> modelARelations = modelAElement.getRelations();
                         Vector<Relation> targetModelRelations = targetElement.getRelations();
@@ -78,6 +90,10 @@ public class GraphComparer {
                                 ArchitectureChange change = new ArchitectureChange(ChangeOperationTypes.MODIFY, "(Element) "+modelAElement.getName(), null);
                                 change.setMessage("(Relation."+modelARelation.getType().toString()+") toward [["+modelARelation.getDestination().getName()+"]] is deleted");
                                 archiChanges.add(change);
+                                
+                                ArchitectureModel workingModel = workingArchitecture.getArchitectureModelById(targetModel.getId());
+                                int revisionNo = targetElement.getRevision();
+                                workingModel.serachElementByID(targetElement.getId()).setRevision(revisionNo+1);
                             }
                             else{
                                 //relation -> modify or same
@@ -85,16 +101,25 @@ public class GraphComparer {
                                     ArchitectureChange change = new ArchitectureChange(ChangeOperationTypes.MODIFY, "(Element) "+modelAElement.getName(), null);
                                     change.setMessage("(Relation."+modelARelation.getType().toString()+") -> "+ "(Relation."+targetRelation.getType().toString()+")");
                                     archiChanges.add(change);
+                                    
+                                    ArchitectureModel workingModel = workingArchitecture.getArchitectureModelById(targetModel.getId());
+                                    int revisionNo = targetElement.getRevision();
+                                    workingModel.serachElementByID(targetElement.getId()).setRevision(revisionNo+1);
                                 }
                                 
                                 targetModelRelations.removeElement(targetRelation);
                             }
+                            
                         }
                         //relation -> add
                         for(Relation targetModelRelation : targetModelRelations){
                             ArchitectureChange change = new ArchitectureChange(ChangeOperationTypes.MODIFY, "(Element) "+modelAElement.getName(), null);
                             change.setMessage("(Relation."+targetModelRelation.getType().toString()+") toward [["+targetModelRelation.getDestination().getName()+"]] is added");
                             archiChanges.add(change);
+                            
+                            ArchitectureModel workingModel = workingArchitecture.getArchitectureModelById(targetModel.getId());
+                            int revisionNo = targetElement.getRevision();
+                            workingModel.serachElementByID(targetElement.getId()).setRevision(revisionNo+1);
                         }
                         
                         targetElements.remove(targetElement);
@@ -105,19 +130,24 @@ public class GraphComparer {
                 for(ArchitectureElement targetElement : targetElements){
                     ArchitectureChange change = new ArchitectureChange(ChangeOperationTypes.ADD, "(Element) "+targetElement.getName(), null); 
                     archiChanges.add(change);
+                    
+                    ArchitectureModel workingModel = workingArchitecture.getArchitectureModelById(targetModel.getId());
+                    workingModel.serachElementByID(targetElement.getId()).setRevision(0);
                 }
-                modelsB.removeElement(targetModel);
+                modelsBClone.removeElement(targetModel);
             }
         }
         // 남이있는 workingModel은 모두 add된 것들임
-        for (ArchitectureModel modelB : modelsB) {
+        for (ArchitectureModel modelB : modelsBClone) {
             Collection<ArchitectureElement> modelBElements = modelB.getElements().values();
 
             for (ArchitectureElement modelBElement : modelBElements) {
                 ArchitectureChange change = new ArchitectureChange(ChangeOperationTypes.ADD, "(Element) " + modelBElement.getName(), null);
                 archiChanges.add(change);
+                
+                ArchitectureModel workingModel = workingArchitecture.getArchitectureModelById(modelB.getId());
+                workingModel.serachElementByID(modelBElement.getId()).setRevision(0);
             }
-            modelsB.removeElement(modelB);
         }
 
         return archiChanges;
@@ -140,4 +170,5 @@ public class GraphComparer {
         }
         return null;
     }
+    
 }

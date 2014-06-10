@@ -46,7 +46,9 @@ public class ArchitectureVersionManager implements IArchitectureVersionManager{
         
         INewVersionGenerator newVersionGenerator = new NewVersionGenerator(workingArchitecture, recentArchitecture);
         Vector<ArchitectureChange> architectureChange = newVersionGenerator.buildNewVersion();
-        
+        if(architectureChange.size() == 0){
+            return;
+        }
         //TODO: Change Decision에 관련된 내용을 여기에 넣기
         
 //        workingArchitecture = fileManager.readWorkingArchitecture(dirPathforNewArchitecture);   //깊은 복사가 없어서 일단 다시 불러옴

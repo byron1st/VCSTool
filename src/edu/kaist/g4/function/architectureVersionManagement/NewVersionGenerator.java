@@ -29,13 +29,13 @@ public class NewVersionGenerator implements INewVersionGenerator{
     @Override
     public Vector<ArchitectureChange> buildNewVersion() {
         //change 정보를 만들어서 리턴하는 함수
-        Vector<ArchitectureModel> workingModels = workingArchitecture.getArchitectureModels();
-        Vector<ArchitectureModel> recentModels = recentArchitecture.getArchitectureModels();
+//        Vector<ArchitectureModel> workingModels = workingArchitecture.getArchitectureModels();
+//        Vector<ArchitectureModel> recentModels = recentArchitecture.getArchitectureModels();
         
  //       Vector<ArchitectureModel> workingModelsClone = (Vector<ArchitectureModel>)workingModels.clone();
  //       Vector<ArchitectureModel> recentModelsClone = (Vector<ArchitectureModel>)recentModels.clone();
         
-        Vector<ArchitectureChange> archiChanges = new GraphComparer().Compare(recentModels, workingModels);
+        Vector<ArchitectureChange> archiChanges = new GraphComparer().Compare(recentArchitecture, workingArchitecture);
     
         return archiChanges;
     }

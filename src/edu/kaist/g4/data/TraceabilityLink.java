@@ -19,6 +19,13 @@ public class TraceabilityLink {
     private Vector<ArchitectureElement> destination;
     private String description;
     
+    public TraceabilityLink(TraceabilityLink link){
+        sourceModel = new ArchitectureModel(link.sourceModel);
+        destModel = new ArchitectureModel(link.destModel);
+        source = new ArchitectureElement(link.source);
+        destination = (Vector<ArchitectureElement>)link.destination.clone();
+        description = new String(link.description);
+    }
     
     public TraceabilityLink(ArchitectureElement srcRefer, Vector<ArchitectureElement> destList){
       this.source = srcRefer;

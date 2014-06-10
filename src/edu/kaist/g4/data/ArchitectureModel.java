@@ -1,8 +1,8 @@
 package edu.kaist.g4.data;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Set;
 import java.util.Vector;
 
 /**
@@ -31,6 +31,25 @@ public class ArchitectureModel {
     private HashMap<String, ArchitectureElement> elements;
     private Vector<Relation> relations;
     private ViewType type;
+    
+    public ArchitectureModel(ArchitectureModel model){
+        name = new String(model.getName());
+        id = new String(model.getId());
+        type = model.getType();
+        
+        elements = new HashMap<String, ArchitectureElement>();
+        relations = new Vector<Relation>();
+        
+        Set<String> elementKeys = model.elements.keySet();
+        for(String key : elementKeys){
+            ArchitectureElement element = model.elements.get(key);
+            this.elements.put(element.getId(), element);
+        }
+        
+        for(Relation relation : model.relations){
+            this.relations.add(relation);
+        }
+    }
     
     public ArchitectureModel(ViewType viewtype){
         elements = new HashMap<String, ArchitectureElement>();
