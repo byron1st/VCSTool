@@ -28,6 +28,14 @@ public interface IFileManager {
      *
      * @param workingArchitecture
      */
+    public void removeRecentArchitecture();
+    
+    /**
+     * @Method Name : removeRecentArchitecture
+     * @Detail      : RecentArchitecture 폴더를 비우는 함수.
+     *
+     * @param addedArchitecturalDifferentiations
+     */
     public void writeNewRecentArchitecture(Architecture workingArchitecture);
     
     /**

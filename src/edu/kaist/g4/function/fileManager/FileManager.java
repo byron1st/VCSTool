@@ -75,9 +75,22 @@ public class FileManager implements IFileManager{
     }
 
     @Override
+    public void removeRecentArchitecture(){
+        File rFile = new File("RecentArchitecture/Model");
+        File[] recentFiles = rFile.listFiles();
+        
+        for(File f : recentFiles){
+            f.delete();
+        }
+        
+        File tFile = new File("RecentArchitecture/Traceability/traceability.xml");
+        tFile.delete();
+    }
+    
+    @Override
     public void writeNewRecentArchitecture(Architecture workingArchitecture) {
-        reader = new Reader();
-        writer.writeArchitecture(workingArchitecture, "RecentArchitecture");    //RecentArchitecture로 변경
+//        reader = new Reader();
+        writer.writeArchitecture(workingArchitecture, "RecentArchitecture");
     }
 
     @Override
