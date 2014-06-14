@@ -1,5 +1,10 @@
 package edu.kaist.g4.ui;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 /**
  * 
  * @FileName : VCSFuncionManager.java
@@ -9,8 +14,8 @@ package edu.kaist.g4.ui;
  * @Detail   : 
  * 
  */
-public class VCSFuncionManager implements IVCSFunctions{
-
+public class VCSFuncionManager {
+    //TODO: manager를 바로 호출하는 방식이 올바른가?
     ClientCommunicationManager manager;
     
     
@@ -19,22 +24,46 @@ public class VCSFuncionManager implements IVCSFunctions{
         this.manager = manager;
     }
 
-    @Override
-    public String showRecentArchitecture() {
-        return manager.requestInform();
-    }
-
-    @Override
     public void commitWorkingArchitecture() {
         // TODO Auto-generated method stub
         
     }
 
-    @Override
     public void checkoutRecentArchitecture(String path) {
         manager.requestCheckout(path);
-        
+    }
+
+    public void callVCSFunction(VCSFunctions requestedFunction) throws IOException {
+        switch(requestedFunction) {
+        case SHOW:
+            functionShow();
+            break;
+        case CHECKOUT:
+            functionCheckout();
+            break;
+        default:
+            break;
+        }
     }
     
+    private void functionShow() {
+        String output = manager.requestInform();
+        System.out.println(output);
+    }
 
+    private void functionCheckout() throws IOException {
+        String path_input = null;
+        System.out.println("Type path :");
+        File file = null;
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        while(file == null || !file.exists()){
+            System.out.println("Copy to "); 
+            path_input = br.readLine();
+            file = new File(path_input);
+        }
+        manager.requestCheckout(path_input);
+        
+        System.out.println("Complete Checkout");
+    }
 }
