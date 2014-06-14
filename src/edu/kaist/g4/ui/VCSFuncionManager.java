@@ -57,10 +57,18 @@ public class VCSFuncionManager {
         File file = null;
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        while(file == null || !file.exists()){
+        while(file == null){
             System.out.println("Copy to "); 
             path_input = br.readLine();
             file = new File(path_input);
+
+            // 정상 경로 체크
+            if(!file.exists()){ 
+                System.out.println("Wrong path.");
+                file = null;
+            }
+            
+            //TODO: Duplication check
         }
         manager.requestCheckout(path_input);
         
