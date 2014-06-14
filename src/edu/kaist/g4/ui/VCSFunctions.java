@@ -1,5 +1,5 @@
 package edu.kaist.g4.ui;
 
 public enum VCSFunctions {
-    SHOW, CHECKOUT
+    SHOW, CHECKOUT, COMMIT
 }

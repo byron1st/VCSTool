@@ -27,4 +27,8 @@ public class ClientCommunicationManager {
     public void requestCheckout(String path){
         this.manger.checkoutRecentArchitecture(path);
     }
+    
+    public String requestCommit(String dirPathforNewArchitecture) {
+        return this.manger.commitNewArchitecture(dirPathforNewArchitecture);
+    }
 }

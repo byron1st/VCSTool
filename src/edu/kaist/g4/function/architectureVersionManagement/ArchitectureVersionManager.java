@@ -36,8 +36,8 @@ public class ArchitectureVersionManager implements IArchitectureVersionManager{
     ArchitecturalDifferentiations currentDiffList;
    
     
-    
-    public void commitNewArchitecture(String dirPathforNewArchitecture) {
+    @Override
+    public String commitNewArchitecture(String dirPathforNewArchitecture) {
         //TODO: 여기다 Sequence 다이어그램 내용 넣기
         Architecture workingArchitecture = fileManager.readWorkingArchitecture(dirPathforNewArchitecture);
         
@@ -47,7 +47,7 @@ public class ArchitectureVersionManager implements IArchitectureVersionManager{
         INewVersionGenerator newVersionGenerator = new NewVersionGenerator(workingArchitecture, recentArchitecture);
         Vector<ArchitectureChange> architectureChange = newVersionGenerator.buildNewVersion();
         if(architectureChange.size() == 0){
-            return;
+            return null;
         }
         //TODO: Change Decision에 관련된 내용을 여기에 넣기
         
@@ -57,7 +57,8 @@ public class ArchitectureVersionManager implements IArchitectureVersionManager{
         fileManager.removeRecentArchitecture();
         fileManager.writeNewRecentArchitecture(workingArchitecture);
         fileManager.appendDiffList(newDiffList);
-
+        
+        return newDiffList.getArchitectureChanges().size() + " architecture changes derived from " + newDiffList.getArchitectureChangeDecision().size() + " architecture change decisions";
     }
 
     @Override

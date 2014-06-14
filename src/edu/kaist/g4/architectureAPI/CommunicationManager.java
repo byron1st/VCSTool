@@ -21,4 +21,8 @@ public class CommunicationManager {
         }
     }
     
+    public String commitNewArchitecture(String dirPathforNewArchitecture) {
+        return manager.commitNewArchitecture(dirPathforNewArchitecture);
+    }
+    
 }

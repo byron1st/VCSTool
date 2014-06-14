@@ -78,4 +78,9 @@ public class APIManager implements IArchitectureAPI{
         }
     }
 
+    @Override
+    public String commitNewArchitecture(String dirPathforNewArchitecture) {
+        return vmanager.commitNewArchitecture(dirPathforNewArchitecture);
+    }
+
 }

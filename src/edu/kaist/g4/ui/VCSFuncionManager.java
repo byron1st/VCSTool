@@ -33,7 +33,7 @@ public class VCSFuncionManager {
         manager.requestCheckout(path);
     }
 
-    public void callVCSFunction(VCSFunctions requestedFunction) throws IOException {
+    public void callVCSFunction(VCSFunctions requestedFunction, String[] args) throws IOException {
         switch(requestedFunction) {
         case SHOW:
             functionShow();
@@ -41,11 +41,20 @@ public class VCSFuncionManager {
         case CHECKOUT:
             functionCheckout();
             break;
+        case COMMIT:
+            functionCommit(args);
+            break;
         default:
             break;
         }
     }
     
+    private void functionCommit(String[] args) {
+        String dirPathforNewArchitecture = args[1];
+        String completeMessage = manager.requestCommit(dirPathforNewArchitecture);
+        System.out.println(completeMessage);
+    }
+
     private void functionShow() {
         String output = manager.requestInform();
         System.out.println(output);

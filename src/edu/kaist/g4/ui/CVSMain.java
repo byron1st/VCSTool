@@ -34,10 +34,20 @@ public class CVSMain {
     	        //TODO: 나중에 어떻게 할지 생각해보기.
     	        switch(args[0]) {
     	        case "show":
-    	            vcsFunctionManager.callVCSFunction(VCSFunctions.SHOW);
+    	            vcsFunctionManager.callVCSFunction(VCSFunctions.SHOW, null);
     	            break;
     	        case "checkout":
-    	            vcsFunctionManager.callVCSFunction(VCSFunctions.CHECKOUT);
+    	            vcsFunctionManager.callVCSFunction(VCSFunctions.CHECKOUT, null);
+    	            break;
+    	        default:
+    	            System.out.println("Wrong argument.");
+    	            break;
+    	        }
+    	        break;
+    	    case 2:
+    	        switch(args[0]) {
+    	        case "commit":
+    	            vcsFunctionManager.callVCSFunction(VCSFunctions.COMMIT, args);
     	            break;
     	        default:
     	            System.out.println("Wrong argument.");
@@ -46,7 +56,6 @@ public class CVSMain {
     	        break;
     	    default:
     	        System.out.println("Wrong argument.");
-    	        //TODO: argument 값이 잘못되었다는 Error 메세지.
     	        break;
     	    }
 	    } catch(Exception e) {
