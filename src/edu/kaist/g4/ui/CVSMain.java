@@ -22,37 +22,21 @@ public class CVSMain {
 	        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 	        String line = null;
 	        try {
-	            while((line =br.readLine()) != null) {
+	            while((line = br.readLine()) != null) {
 	                if(line.indexOf("exit") != -1) {
 	                    System.exit(0);
-	                }
-	                else if(line.equals("show")){
-	                    String output = vcsf.showRecentArchitecture();
-	                    System.out.println(output);
-	                }
-	                else if(line.equals("checkout")){
-	                
-	                    String path_input = null;
-	                    System.out.println("Type path :");
-	                    File file = null;
-	                    while(file == null || !file.exists()){
-	                    
-	                    System.out.println("Copy to "); 
-	                    path_input =br.readLine();
-	                    file = new File(path_input);
-	                    
-	                    }
-	                    vcsf.checkoutRecentArchitecture(path_input);
-	                    
-	                    System.out.println("Complete Checkout");
+	                } else if(line.equals("show")){
+	                    functionShow(vcsf);
+	                } else if(line.equals("checkout")){
+	                    functionCheckout(vcsf, br);
 	                }
 	            }
 	        } catch (IOException e) {
-	            // TODO Auto-generated catch block
 	            e.printStackTrace();
 	        }
 	        break;
 	    case 1:
+	        //TODO: 나중에 어떻게 할지 생각해보기.
 //	        if(args[0].equals("checkout"))
 //	        {
 //	            String output = vcsf.showRecentArchitecture();
@@ -60,6 +44,24 @@ public class CVSMain {
 //	        }
 	        break;
 	    }
+	}
 	
+	private static void functionShow(IVCSFunctions vcsf) {
+	    String output = vcsf.showRecentArchitecture();
+        System.out.println(output);
+    }
+
+    private static void functionCheckout(IVCSFunctions vcsf, BufferedReader br) throws IOException {
+	    String path_input = null;
+        System.out.println("Type path :");
+        File file = null;
+        while(file == null || !file.exists()){
+            System.out.println("Copy to "); 
+            path_input = br.readLine();
+            file = new File(path_input);
+        }
+        vcsf.checkoutRecentArchitecture(path_input);
+        
+        System.out.println("Complete Checkout");
 	}
 }

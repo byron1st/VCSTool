@@ -53,17 +53,17 @@ public class APIManager implements IArchitectureAPI{
     void copyFolder(String path, String new_path) throws Exception{
         File folder = new File(path);
         if(folder.isDirectory()){
-            File new_folder = new File(new_path +"\\"+ folder.getName());
+            File new_folder = new File(new_path +"/"+ folder.getName());
             new_folder.mkdir();
             String[] list = folder.list();
             for(int i=0;i<list.length;i++){
-                File f = new File(path + "\\"+ list[i]);
+                File f = new File(path + "/"+ list[i]);
                 if(f.isDirectory()){
                     copyFolder(f.getAbsolutePath(), new_folder.getAbsolutePath());
                 }
                 else{
                   FileInputStream fis = new FileInputStream(f);
-                  FileOutputStream fos = new FileOutputStream(new_folder.getAbsoluteFile() + "\\" +f.getName());
+                  FileOutputStream fos = new FileOutputStream(new_folder.getAbsoluteFile() + "/" +f.getName());
                  
                   
                   int data = 0;
