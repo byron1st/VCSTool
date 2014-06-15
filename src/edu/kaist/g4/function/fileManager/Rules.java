@@ -363,16 +363,19 @@ public class Rules{
                 doc = docBuilder.parse(diffFile);
                 rootElement = doc.getDocumentElement();
             }
-            segmentElement = doc.createElement("segment");
+            segmentElement = doc.createElement("ChangeDecision");
             rootElement.appendChild(segmentElement);
-            attr = doc.createAttribute("timestamp");
+            attr = doc.createAttribute("id");
             attr.setValue(Long.toString(System.currentTimeMillis()));
+            segmentElement.setAttributeNode(attr);
+            attr = doc.createAttribute("message");
+            attr.setValue(diffList.getArchitectureChangeDecision().getArchitectureChangeDrivers());
             segmentElement.setAttributeNode(attr);
             
             Vector<ArchitectureChange> changes = diffList.getArchitectureChanges();
             for(ArchitectureChange change : changes){
-                Element diffElement = doc.createElement("difference");
-                attr = doc.createAttribute("name");
+                Element diffElement = doc.createElement("ArchitectureChange");
+                attr = doc.createAttribute("id");
                 attr.setValue(change.getParameter());
                 diffElement.setAttributeNode(attr);
                 

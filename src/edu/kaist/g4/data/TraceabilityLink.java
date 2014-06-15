@@ -17,14 +17,12 @@ public class TraceabilityLink {
     private ArchitectureModel sourceModel, destModel;
     private ArchitectureElement source;
     private Vector<ArchitectureElement> destination;
-    private String description;
     
     public TraceabilityLink(TraceabilityLink link){
         sourceModel = new ArchitectureModel(link.sourceModel);
         destModel = new ArchitectureModel(link.destModel);
         source = new ArchitectureElement(link.source);
         destination = (Vector<ArchitectureElement>)link.destination.clone();
-        description = new String(link.description);
     }
     
     public TraceabilityLink(ArchitectureElement srcRefer, Vector<ArchitectureElement> destList){
@@ -71,14 +69,6 @@ public class TraceabilityLink {
 
     public void setDestination(Vector<ArchitectureElement> destination) {
         this.destination = destination;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
     
     public String overallInformation(){

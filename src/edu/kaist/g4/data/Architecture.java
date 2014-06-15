@@ -34,6 +34,7 @@ public class Architecture implements IArchitecture {
     }
 
     public Architecture(Architecture arch){
+        tLinks = new Vector<TraceabilityLink>();
         archname = new String(arch.getArchname());
         id = new String(arch.getId());
 

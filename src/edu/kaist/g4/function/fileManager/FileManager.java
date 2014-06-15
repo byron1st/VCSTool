@@ -26,18 +26,26 @@ public class FileManager implements IFileManager{
     public Architecture readWorkingArchitecture(String dirPath) {
         reader = new Reader();
         try{
-            File file = new File(dirPath);
+            SAXParserFactory spf = SAXParserFactory.newInstance();  
+            SAXParser sp = spf.newSAXParser();  
+            XMLReader xr = sp.getXMLReader();  
+            xr.setContentHandler(reader);
+            
+            File file = new File(dirPath+"/Model");
             File[] listFiles = file.listFiles();
             for(File f : listFiles){   
                 if(f.getName().endsWith(".xml")){
-                    SAXParserFactory spf = SAXParserFactory.newInstance();  
-                    SAXParser sp = spf.newSAXParser();  
-                    XMLReader xr = sp.getXMLReader();  
-                    
-                    xr.setContentHandler(reader);  
-                
                     xr.parse(new InputSource(new FileInputStream(f)));
                     reader.addArchitectureModel();
+                }
+            }
+            
+            File tFile = new File(dirPath+"/Traceability");
+            File[] tListFiles = tFile.listFiles();            
+            for(File f : tListFiles){
+                if(f.getName().endsWith(".xml")){
+                    xr.parse(new InputSource(new FileInputStream(f)));
+                    reader.addTraceability();
                 }
             }
         } catch (Exception e) {  
@@ -56,6 +64,9 @@ public class FileManager implements IFileManager{
             xr.setContentHandler(reader);
             
             File mFile = new File("RecentArchitecture/Model");
+            if(!mFile.exists()){
+                mFile.mkdirs();
+            }
             File[] mListFiles = mFile.listFiles();
             
             for(File f : mListFiles){   
@@ -66,8 +77,10 @@ public class FileManager implements IFileManager{
             }
             
             File tFile = new File("RecentArchitecture/Traceability");
-            File[] tListFiles = tFile.listFiles();
-            
+            if(!tFile.exists()){
+                tFile.mkdirs();
+            }            
+            File[] tListFiles = tFile.listFiles();            
             for(File f : tListFiles){
                 if(f.getName().endsWith(".xml")){
                     xr.parse(new InputSource(new FileInputStream(f)));

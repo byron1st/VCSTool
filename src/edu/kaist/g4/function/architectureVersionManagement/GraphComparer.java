@@ -38,7 +38,7 @@ public class GraphComparer {
                 Collection<ArchitectureElement> modelAElements = modelA.getElements().values();
 
                 for (ArchitectureElement modelAElement : modelAElements) {
-                    ArchitectureChange change = new ArchitectureChange(ChangeOperationTypes.DELETE, modelAElement.getName(), null);
+                    ArchitectureChange change = new ArchitectureChange(ChangeOperationTypes.DELETE, modelAElement.getId(), null);
                     archiChanges.add(change);
                 }
 //                modelsBClone.removeElement(modelA);
@@ -55,7 +55,7 @@ public class GraphComparer {
                     
                     if(targetElement == null){
                         //해당 엘리먼트는 delete된 것임
-                        ArchitectureChange change = new ArchitectureChange(ChangeOperationTypes.DELETE, modelAElement.getName(), null); 
+                        ArchitectureChange change = new ArchitectureChange(ChangeOperationTypes.DELETE, modelAElement.getId(), null); 
                         archiChanges.add(change);
                     }
                     else{
@@ -87,7 +87,7 @@ public class GraphComparer {
                             Relation targetRelation = getDestinationbyId(targetModelRelations, dstElementId);
                             if(targetRelation == null){
                                 //releation -> Deleted
-                                ArchitectureChange change = new ArchitectureChange(ChangeOperationTypes.MODIFY, modelAElement.getName(), null);
+                                ArchitectureChange change = new ArchitectureChange(ChangeOperationTypes.MODIFY, modelAElement.getId(), null);
                                 change.setMessage("(Relation."+modelARelation.getType().toString()+") toward [["+modelARelation.getDestination().getName()+"]] is deleted");
                                 archiChanges.add(change);
                                 
@@ -97,7 +97,7 @@ public class GraphComparer {
                             else{
                                 //relation -> modify or same
                                 if(!modelARelation.getType().toString().equals(targetRelation.getType().toString())){
-                                    ArchitectureChange change = new ArchitectureChange(ChangeOperationTypes.MODIFY, modelAElement.getName(), null);
+                                    ArchitectureChange change = new ArchitectureChange(ChangeOperationTypes.MODIFY, modelAElement.getId(), null);
                                     change.setMessage("(Relation."+modelARelation.getType().toString()+") -> "+ "(Relation."+targetRelation.getType().toString()+")");
                                     archiChanges.add(change);
                                     
@@ -111,7 +111,7 @@ public class GraphComparer {
                         }
                         //relation -> add
                         for(Relation targetModelRelation : targetModelRelations){
-                            ArchitectureChange change = new ArchitectureChange(ChangeOperationTypes.MODIFY, modelAElement.getName(), null);
+                            ArchitectureChange change = new ArchitectureChange(ChangeOperationTypes.MODIFY, modelAElement.getId(), null);
                             change.setMessage("(Relation."+targetModelRelation.getType().toString()+") toward [["+targetModelRelation.getDestination().getName()+"]] is added");
                             archiChanges.add(change);
                             
@@ -125,7 +125,7 @@ public class GraphComparer {
                 }
                 //남아있는 recentElement는 모두 add된 것들임
                 for(ArchitectureElement targetElement : targetElements){
-                    ArchitectureChange change = new ArchitectureChange(ChangeOperationTypes.ADD, targetElement.getName(), null); 
+                    ArchitectureChange change = new ArchitectureChange(ChangeOperationTypes.ADD, targetElement.getId(), null); 
                     archiChanges.add(change);
                     
                     ArchitectureModel workingModel = workingArchitecture.getArchitectureModelById(targetModel.getId());
@@ -139,7 +139,7 @@ public class GraphComparer {
             Collection<ArchitectureElement> modelBElements = modelB.getElements().values();
 
             for (ArchitectureElement modelBElement : modelBElements) {
-                ArchitectureChange change = new ArchitectureChange(ChangeOperationTypes.ADD, modelBElement.getName(), null);
+                ArchitectureChange change = new ArchitectureChange(ChangeOperationTypes.ADD, modelBElement.getId(), null);
                 archiChanges.add(change);
                 
                 ArchitectureModel workingModel = workingArchitecture.getArchitectureModelById(modelB.getId());
