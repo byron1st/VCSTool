@@ -73,7 +73,7 @@ public class GraphComparer {
                         }
                         if(!modelAElement.getName().equals(targetElement.getName())){
                             ArchitectureChange change = new ArchitectureChange(ChangeOperationTypes.MODIFY, modelA.getId());
-                            change.setMessage(modelAElement.getName() + " -> " + targetElement.getName());
+                            change.setMessage(modelAElement.getId() + " -> " + targetElement.getId());
                             archiChanges.add(change);
                             
                             ArchitectureModel workingModel = workingArchitecture.getArchitectureModelById(targetModel.getId());
@@ -88,7 +88,7 @@ public class GraphComparer {
                             if(targetRelation == null){
                                 //releation -> Deleted
                                 ArchitectureChange change = new ArchitectureChange(ChangeOperationTypes.MODIFY, modelAElement.getId(), null);
-                                change.setMessage("(Relation."+modelARelation.getType().toString()+") toward [["+modelARelation.getDestination().getName()+"]] is deleted");
+                                change.setMessage("(Relation."+modelARelation.getType().toString()+") toward [["+modelARelation.getDestination().getId()+"]] is deleted");
                                 archiChanges.add(change);
                                 
                                 ArchitectureModel workingModel = workingArchitecture.getArchitectureModelById(targetModel.getId());
@@ -112,7 +112,7 @@ public class GraphComparer {
                         //relation -> add
                         for(Relation targetModelRelation : targetModelRelations){
                             ArchitectureChange change = new ArchitectureChange(ChangeOperationTypes.MODIFY, modelAElement.getId(), null);
-                            change.setMessage("(Relation."+targetModelRelation.getType().toString()+") toward [["+targetModelRelation.getDestination().getName()+"]] is added");
+                            change.setMessage("(Relation."+targetModelRelation.getType().toString()+") toward [["+targetModelRelation.getDestination().getId()+"]] is added");
                             archiChanges.add(change);
                             
                             ArchitectureModel workingModel = workingArchitecture.getArchitectureModelById(targetModel.getId());
