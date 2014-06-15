@@ -59,6 +59,7 @@ public class CVSMain {
     	        break;
     	    }
 	    } catch(Exception e) {
+	        e.printStackTrace();
 	        System.out.println("Exception error : "+ e.getMessage());
 	    }
 	}
