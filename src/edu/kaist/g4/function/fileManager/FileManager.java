@@ -56,17 +56,21 @@ public class FileManager implements IFileManager{
             File mFile = new File("RecentArchitecture/Model");
             File[] mListFiles = mFile.listFiles();
             
-            for(File f : mListFiles){     
-                xr.parse(new InputSource(new FileInputStream(f)));
-                reader.addArchitectureModel();
+            for(File f : mListFiles){   
+                if(f.getName().endsWith(".xml")){
+                    xr.parse(new InputSource(new FileInputStream(f)));
+                    reader.addArchitectureModel();
+                }
             }
             
             File tFile = new File("RecentArchitecture/Traceability");
             File[] tListFiles = tFile.listFiles();
             
-            for(File f : tListFiles){     
-                xr.parse(new InputSource(new FileInputStream(f)));
-                reader.addTraceability();
+            for(File f : tListFiles){
+                if(f.getName().endsWith(".xml")){
+                    xr.parse(new InputSource(new FileInputStream(f)));
+                    reader.addTraceability();
+                }
             }
         } catch (Exception e) {  
             e.printStackTrace();  
