@@ -4,5 +4,5 @@ public interface IArchitectureAPI {
     public String showRecentArchitecture();
     public void checkoutRecentArchitecture(String path) throws Exception;
     public String traceVersionInfoWith(String command, String parameter);
-    public String commitNewArchitecture(String dirPathforNewArchitecture);
+    public String commitNewArchitecture(String dirPathforNewArchitecture, String changeDecision);
 }

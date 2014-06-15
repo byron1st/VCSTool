@@ -5,6 +5,7 @@ import java.util.Vector;
 import edu.kaist.g4.data.Architecture;
 import edu.kaist.g4.data.architecturalDifferentiations.ArchitecturalDifferentiations;
 import edu.kaist.g4.data.architecturalDifferentiations.ArchitectureChange;
+import edu.kaist.g4.data.architecturalDifferentiations.ArchitectureChangeDecision;
 import edu.kaist.g4.function.fileManager.FileManager;
 import edu.kaist.g4.function.fileManager.IFileManager;
 
@@ -37,7 +38,7 @@ public class ArchitectureVersionManager implements IArchitectureVersionManager{
    
     
     @Override
-    public String commitNewArchitecture(String dirPathforNewArchitecture) {
+    public String commitNewArchitecture(String dirPathforNewArchitecture, String changeDecision) {
         //TODO: 여기다 Sequence 다이어그램 내용 넣기
         Architecture workingArchitecture = fileManager.readWorkingArchitecture(dirPathforNewArchitecture);
         
@@ -50,9 +51,12 @@ public class ArchitectureVersionManager implements IArchitectureVersionManager{
             return null;
         }
         //TODO: Change Decision에 관련된 내용을 여기에 넣기
+        ArchitectureChangeDecision architectureChangeDecision = new ArchitectureChangeDecision();
+        architectureChangeDecision.setArchitectureChangeDrivers(changeDecision);
+        architectureChangeDecision.setArchitectureChanges(architectureChange);
         
 //        workingArchitecture = fileManager.readWorkingArchitecture(dirPathforNewArchitecture);   //깊은 복사가 없어서 일단 다시 불러옴
-        ArchitecturalDifferentiations newDiffList = new ArchitecturalDifferentiations(null, architectureChange);
+        ArchitecturalDifferentiations newDiffList = new ArchitecturalDifferentiations(architectureChangeDecision, architectureChange);
         
         fileManager.removeRecentArchitecture();
         fileManager.writeNewRecentArchitecture(workingArchitecture);

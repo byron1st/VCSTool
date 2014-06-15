@@ -24,15 +24,6 @@ public class VCSFuncionManager {
         this.manager = manager;
     }
 
-    public void commitWorkingArchitecture() {
-        // TODO Auto-generated method stub
-        
-    }
-
-    public void checkoutRecentArchitecture(String path) {
-        manager.requestCheckout(path);
-    }
-
     public void callVCSFunction(VCSFunctions requestedFunction, String[] args) throws IOException {
         switch(requestedFunction) {
         case SHOW:
@@ -49,9 +40,22 @@ public class VCSFuncionManager {
         }
     }
     
-    private void functionCommit(String[] args) {
+    private void functionCommit(String[] args) throws IOException {
         String dirPathforNewArchitecture = args[1];
-        String completeMessage = manager.requestCommit(dirPathforNewArchitecture);
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        boolean isDone = false;
+        String changeDecision = null;
+        while(!isDone) {
+            System.out.println("Type architecture change decision "
+                    + "\n(Recommend use the ID for a change decision "
+                    + "\nand write its detail in other separate documents.)");
+            changeDecision = br.readLine();
+            if(changeDecision == null)
+                System.out.println("Don't leave it a blank.");
+            else
+                isDone = true;
+        }
+        String completeMessage = manager.requestCommit(dirPathforNewArchitecture, changeDecision);
         System.out.println(completeMessage);
     }
 
