@@ -26,20 +26,20 @@ import edu.kaist.g4.function.fileManager.IFileManager;
  */
 public class ArchitectureVersionManager implements IArchitectureVersionManager{
     
-    //TODO: 차후 수정.
-    //TODO: Constructor에서 초기화하는 걸로 수정.
+    //TODO: 李⑦썑 �섏젙.
+    //TODO: Constructor�먯꽌 珥덇린�뷀븯��嫄몃줈 �섏젙.
     IFileManager fileManager = new FileManager();
     
-    //checkout에서도 recentArchitecture를 사용하기 때문에 멤버변수로 선언
+    //checkout�먯꽌��recentArchitecture瑜��ъ슜�섍린 �뚮Ц��硫ㅻ쾭蹂�닔濡��좎뼵
     Architecture recentArchitecture;
     
-    //diff 요청할 때마다 filemanager를 불러오는걸 막기 위해 멤버변수로 선언
+    //diff �붿껌���뚮쭏��filemanager瑜�遺덈윭�ㅻ뒗嫄�留됯린 �꾪빐 硫ㅻ쾭蹂�닔濡��좎뼵
     ArchitecturalDifferentiations currentDiffList;
    
     
     @Override
     public String commitNewArchitecture(String dirPathforNewArchitecture, String changeDecision) {
-        //TODO: 여기다 Sequence 다이어그램 내용 넣기
+        //TODO: �ш린��Sequence �ㅼ씠�닿렇���댁슜 �ｊ린
         Architecture workingArchitecture = fileManager.readWorkingArchitecture(dirPathforNewArchitecture);
         
         if(recentArchitecture == null)
@@ -50,14 +50,15 @@ public class ArchitectureVersionManager implements IArchitectureVersionManager{
         if(architectureChange.size() == 0){
             return null;
         }
-        //TODO: Change Decision에 관련된 내용을 여기에 넣기
+        //TODO: Change Decision��愿�젴���댁슜���ш린���ｊ린
         ArchitectureChangeDecision architectureChangeDecision = new ArchitectureChangeDecision();
         architectureChangeDecision.setArchitectureChangeDrivers(changeDecision);
         architectureChangeDecision.setArchitectureChanges(architectureChange);
         
-//        workingArchitecture = fileManager.readWorkingArchitecture(dirPathforNewArchitecture);   //깊은 복사가 없어서 일단 다시 불러옴
+//        workingArchitecture = fileManager.readWorkingArchitecture(dirPathforNewArchitecture);   //源딆� 蹂듭궗媛��놁뼱���쇰떒 �ㅼ떆 遺덈윭��        ArchitecturalDifferentiations newDiffList = new ArchitecturalDifferentiations(architectureChangeDecision, architectureChange);
         ArchitecturalDifferentiations newDiffList = new ArchitecturalDifferentiations(architectureChangeDecision, architectureChange);
         
+
         
         fileManager.removeRecentArchitecture();
         fileManager.writeNewRecentArchitecture(workingArchitecture);
@@ -82,10 +83,10 @@ public class ArchitectureVersionManager implements IArchitectureVersionManager{
             currentDiffList = fileManager.readDiffList();
         IVersionInfoTracer versionInfoTracer = new VersionInfoTracer(currentDiffList);
         String printedMessage = "";
-        if(command.equals("ViewAll")) //TODO: 향후 Enum으로 변경.
+        if(command.equals("ViewAll")) //TODO: �ν썑 Enum�쇰줈 蹂�꼍.
             printedMessage = versionInfoTracer.printAllDiffs(parameter);
         else
-            printedMessage = "This is not a supported command."; //TODO: 향후 메세지들 한 곳에 모으기.
+            printedMessage = "This is not a supported command."; //TODO: �ν썑 硫붿꽭吏�뱾 ��怨녹뿉 紐⑥쑝湲�
         return printedMessage;
     }
     
