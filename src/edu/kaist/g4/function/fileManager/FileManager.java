@@ -29,14 +29,16 @@ public class FileManager implements IFileManager{
             File file = new File(dirPath);
             File[] listFiles = file.listFiles();
             for(File f : listFiles){   
-                SAXParserFactory spf = SAXParserFactory.newInstance();  
-                SAXParser sp = spf.newSAXParser();  
-                XMLReader xr = sp.getXMLReader();  
+                if(f.getName().endsWith(".xml")){
+                    SAXParserFactory spf = SAXParserFactory.newInstance();  
+                    SAXParser sp = spf.newSAXParser();  
+                    XMLReader xr = sp.getXMLReader();  
                     
-                xr.setContentHandler(reader);  
-        
-                xr.parse(new InputSource(new FileInputStream(f)));
-                reader.addArchitectureModel();
+                    xr.setContentHandler(reader);  
+                
+                    xr.parse(new InputSource(new FileInputStream(f)));
+                    reader.addArchitectureModel();
+                }
             }
         } catch (Exception e) {  
             e.printStackTrace();  
