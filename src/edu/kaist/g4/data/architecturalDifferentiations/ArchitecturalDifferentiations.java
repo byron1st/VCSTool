@@ -14,9 +14,9 @@ import java.util.Vector;
 public class ArchitecturalDifferentiations implements IArchitecturalDifferentiations {
     
     private Vector<ArchitectureChange> architectureChanges = new Vector<ArchitectureChange>();
-    private Vector<ArchitectureChangeDecision> architectureChangeDecision = new Vector<ArchitectureChangeDecision>();
+    private ArchitectureChangeDecision architectureChangeDecision;
     
-    public ArchitecturalDifferentiations(Vector<ArchitectureChangeDecision> architectureChangeDecisions,
+    public ArchitecturalDifferentiations(ArchitectureChangeDecision architectureChangeDecisions,
             Vector<ArchitectureChange> architectureChanges) {
         this.architectureChangeDecision = architectureChangeDecisions;
         this.architectureChanges = architectureChanges;
@@ -32,12 +32,11 @@ public class ArchitecturalDifferentiations implements IArchitecturalDifferentiat
         this.architectureChanges = architectureChanges;
     }
     
-    public Vector<ArchitectureChangeDecision> getArchitectureChangeDecision() {
+    public ArchitectureChangeDecision getArchitectureChangeDecision() {
         return architectureChangeDecision;
     }
     
-    public void setArchitectureChangeDecision(
-            Vector<ArchitectureChangeDecision> architectureChangeDecision) {
+    public void setArchitectureChangeDecision(ArchitectureChangeDecision architectureChangeDecision) {
         this.architectureChangeDecision = architectureChangeDecision;
     }
 }

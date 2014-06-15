@@ -58,7 +58,7 @@ public class ArchitectureVersionManager implements IArchitectureVersionManager{
         fileManager.writeNewRecentArchitecture(workingArchitecture);
         fileManager.appendDiffList(newDiffList);
         
-        return newDiffList.getArchitectureChanges().size() + " architecture changes derived from " + newDiffList.getArchitectureChangeDecision().size() + " architecture change decisions";
+        return newDiffList.getArchitectureChanges().size() + " architecture changes derived from " + newDiffList.getArchitectureChangeDecision().getArchitectureChangeDrivers();
     }
 
     @Override
