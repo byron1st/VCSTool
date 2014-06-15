@@ -58,6 +58,7 @@ public class ArchitectureVersionManager implements IArchitectureVersionManager{
 //        workingArchitecture = fileManager.readWorkingArchitecture(dirPathforNewArchitecture);   //깊은 복사가 없어서 일단 다시 불러옴
         ArchitecturalDifferentiations newDiffList = new ArchitecturalDifferentiations(architectureChangeDecision, architectureChange);
         
+        
         fileManager.removeRecentArchitecture();
         fileManager.writeNewRecentArchitecture(workingArchitecture);
         fileManager.appendDiffList(newDiffList);
