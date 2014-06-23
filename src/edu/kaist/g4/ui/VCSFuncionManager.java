@@ -35,6 +35,9 @@ public class VCSFuncionManager {
         case COMMIT:
             functionCommit(args);
             break;
+        case DIFF:
+            functionDiffList();
+            functionDiffInfo();
         default:
             break;
         }
@@ -86,5 +89,11 @@ public class VCSFuncionManager {
         manager.requestCheckout(path_input);
         
         System.out.println("Complete Checkout");
+    }
+    private void functionDiffList(){
+        manager.requestDiffList();
+    }
+    private void functionDiffInfo(){
+        
     }
 }

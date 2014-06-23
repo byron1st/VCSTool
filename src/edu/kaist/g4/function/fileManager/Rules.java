@@ -411,5 +411,11 @@ public class Rules{
         
         
     }
+    
+    public ArchitecturalDifferentiations[] readDiffList(String dir){
+        //TODO
+        return null;
+        
+    }
 }
  

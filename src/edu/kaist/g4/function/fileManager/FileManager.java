@@ -118,9 +118,9 @@ public class FileManager implements IFileManager{
     }
 
     @Override
-    public ArchitecturalDifferentiations readDiffList() {
-        // TODO 쌈빡하게 하나 만들어주삼.
-        return null;
+    public ArchitecturalDifferentiations[] readDiffList() {
+        //return "DifferenceList"+File.separator+"Differences";
+        return reader.readDiffList("DifferenceList");
     }
 
 }

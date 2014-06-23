@@ -14,21 +14,25 @@ import edu.kaist.g4.architectureAPI.CommunicationManager;
  */
 public class ClientCommunicationManager {
     
-    private CommunicationManager manger;
+    private CommunicationManager manager;
     
     public void connectRepository(CommunicationManager manager){
-        this.manger = manager;
+        this.manager = manager;
     }
     
     public String requestInform(){
-        return this.manger.showRecentArchitecture();
+        return this.manager.showRecentArchitecture();
     }
     
     public void requestCheckout(String path){
-        this.manger.checkoutRecentArchitecture(path);
+        this.manager.checkoutRecentArchitecture(path);
     }
     
     public String requestCommit(String dirPathforNewArchitecture, String changeDecision) {
-        return this.manger.commitNewArchitecture(dirPathforNewArchitecture, changeDecision);
+        return this.manager.commitNewArchitecture(dirPathforNewArchitecture, changeDecision);
+    }
+    
+    public void requestDiffList(){
+       this.manager.showDiffList();
     }
 }

@@ -1,5 +1,6 @@
 package edu.kaist.g4.function.fileManager;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
@@ -15,6 +16,7 @@ import edu.kaist.g4.data.ArchitectureModel;
 import edu.kaist.g4.data.ElementType;
 import edu.kaist.g4.data.Relation;
 import edu.kaist.g4.data.RelationType;
+import edu.kaist.g4.data.architecturalDifferentiations.ArchitecturalDifferentiations;
 
 public class Reader extends DefaultHandler{
     private Model_XML modelXML;
@@ -119,5 +121,14 @@ public class Reader extends DefaultHandler{
     @Override
     public void characters(char[] ch, int start, int length){
         text = new String(ch, start, length).trim();
+    }
+    
+    public ArchitecturalDifferentiations[] readDiffList(String dir){
+        File cDir = new File(dir);
+        if(!cDir.exists()){
+            cDir.mkdirs();
+            return null;
+        }
+        return parsingRule.readDiffList(dir);
     }
 }

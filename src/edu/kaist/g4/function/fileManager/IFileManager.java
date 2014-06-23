@@ -53,5 +53,5 @@ public interface IFileManager {
      *
      * @return
      */
-    public ArchitecturalDifferentiations readDiffList();
+    public ArchitecturalDifferentiations[] readDiffList();
 }

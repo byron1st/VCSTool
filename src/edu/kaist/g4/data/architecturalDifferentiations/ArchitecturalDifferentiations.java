@@ -15,11 +15,21 @@ public class ArchitecturalDifferentiations implements IArchitecturalDifferentiat
     
     private Vector<ArchitectureChange> architectureChanges = new Vector<ArchitectureChange>();
     private ArchitectureChangeDecision architectureChangeDecision;
+    private String id;  //only used print
     
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public ArchitecturalDifferentiations(ArchitectureChangeDecision architectureChangeDecisions,
             Vector<ArchitectureChange> architectureChanges) {
         this.architectureChangeDecision = architectureChangeDecisions;
         this.architectureChanges = architectureChanges;
+        this.id = "";
         
     }
 

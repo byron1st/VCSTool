@@ -39,6 +39,8 @@ public class CVSMain {
     	        case "checkout":
     	            vcsFunctionManager.callVCSFunction(VCSFunctions.CHECKOUT, null);
     	            break;
+    	        case "diff":
+    	            vcsFunctionManager.callVCSFunction(VCSFunctions.DIFF, null);
     	        default:
     	            System.out.println("Wrong argument.");
     	            break;
