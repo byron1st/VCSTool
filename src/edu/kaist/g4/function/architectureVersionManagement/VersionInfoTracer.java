@@ -25,8 +25,7 @@ public class VersionInfoTracer implements IVersionInfoTracer{
     }
     
     public String printAllDiffs(String parameter) {
-        String printedMessage = "Revision timestamp: " + diffList.getId() + "\n";
-        printedMessage += "ChangeDecision id: " + diffList.getId() + "\n";
+        String printedMessage = "ChangeDecision id: " + diffList.getId() + "\n";
 
         printedMessage += "Description: "
                 + diffList.getArchitectureChangeDecision()
@@ -53,7 +52,6 @@ public class VersionInfoTracer implements IVersionInfoTracer{
         Iterator<ArchitecturalDifferentiations> it = diffAllList.iterator();
         while (it.hasNext()) {
             diffList = it.next();
-            printedMessage += "Revision timestamp: " + diffList.getId() + "\n";
             printedMessage += "ChangeDecision id: " + diffList.getId() + "\n";
 
             printedMessage += "Description: "

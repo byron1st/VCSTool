@@ -16,15 +16,6 @@ public class ArchitecturalDifferentiations implements IArchitecturalDifferentiat
     private Vector<ArchitectureChange> architectureChanges = new Vector<ArchitectureChange>();
     private ArchitectureChangeDecision architectureChangeDecision;
     private String id;  //only used print, same as ChangeDecision id
-    private String timestamp;
-    
-    public String getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(String timestamp) {
-        this.timestamp = timestamp;
-    }
 
     public String getId() {
         return id;
