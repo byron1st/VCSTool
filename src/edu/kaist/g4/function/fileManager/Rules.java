@@ -37,7 +37,6 @@ import edu.kaist.g4.data.architecturalDifferentiations.ArchitectureChange;
 import edu.kaist.g4.data.architecturalDifferentiations.ArchitectureChangeDecision;
 import edu.kaist.g4.data.architecturalDifferentiations.ChangeOperationTypes;
 
-
 public class Rules{
     private String linkSrcId;
     private ArrayList<Object> linkDstId;
