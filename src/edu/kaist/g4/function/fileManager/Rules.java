@@ -475,6 +475,7 @@ public class Rules{
                     else{
                         c = new ArchitectureChange(ChangeOperationTypes.MODIFY, id, message);
                     }
+                    
                     architectureChange.add(c);
                 }
                 String changeDecision = decision.getAttribute("message");
