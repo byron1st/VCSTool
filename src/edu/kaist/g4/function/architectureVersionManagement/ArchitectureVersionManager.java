@@ -79,18 +79,19 @@ public class ArchitectureVersionManager implements IArchitectureVersionManager{
 
     @Override
     public String traceVersionInfoWith(String command, String parameter) {
-        ArchitecturalDifferentiations[] allLists = null;
+        Vector<ArchitecturalDifferentiations> allLists = null;
         if(currentDiffList == null){
             allLists = fileManager.readDiffList();
-            currentDiffList = allLists[0];
+            if(allLists == null) 
+               System.out.println("exit diff mode");
+            currentDiffList = allLists.get(0);
         }
         IVersionInfoTracer versionInfoTracer = new VersionInfoTracer(currentDiffList,allLists);
         String printedMessage = "";
         if(command.equals("ViewAll")) //TODO: �ν썑 Enum�쇰줈 蹂�꼍.
             printedMessage = versionInfoTracer.printAllDiffs(parameter);
-        if(command.equals("ViewAllList")){
+        else if(command.equals("ViewAllList")){
             printedMessage = versionInfoTracer.printAllLists(parameter);
-            System.out.println("not yet implemented");
         }
         else
             printedMessage = "This is not a supported command."; //TODO: �ν썑 硫붿꽭吏�뱾 ��怨녹뿉 紐⑥쑝湲�

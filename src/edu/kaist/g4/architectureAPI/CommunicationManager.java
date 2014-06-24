@@ -25,6 +25,6 @@ public class CommunicationManager {
         return manager.commitNewArchitecture(dirPathforNewArchitecture, changeDecision);
     }
     public void showDiffList(){
-        System.out.println(manager.traceVersionInfoWith("ViewAll", null));
+        System.out.println(manager.traceVersionInfoWith("ViewAllList", null));
     }
 }

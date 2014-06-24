@@ -2,6 +2,7 @@ package edu.kaist.g4.function.fileManager;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.util.Vector;
 
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -118,9 +119,11 @@ public class FileManager implements IFileManager{
     }
 
     @Override
-    public ArchitecturalDifferentiations[] readDiffList() {
+    public Vector<ArchitecturalDifferentiations> readDiffList() {
         //return "DifferenceList"+File.separator+"Differences";
-        return reader.readDiffList("DifferenceList");
+        if(reader == null)
+            reader = new Reader();
+        return reader.readDiffList("DifferencesList");
     }
 
 }

@@ -37,7 +37,6 @@ public class VCSFuncionManager {
             break;
         case DIFF:
             functionDiffList();
-            functionDiffInfo();
         default:
             break;
         }
@@ -92,8 +91,5 @@ public class VCSFuncionManager {
     }
     private void functionDiffList(){
         manager.requestDiffList();
-    }
-    private void functionDiffInfo(){
-        
     }
 }

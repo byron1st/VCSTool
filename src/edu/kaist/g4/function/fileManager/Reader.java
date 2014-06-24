@@ -123,12 +123,14 @@ public class Reader extends DefaultHandler{
         text = new String(ch, start, length).trim();
     }
     
-    public ArchitecturalDifferentiations[] readDiffList(String dir){
+    public Vector<ArchitecturalDifferentiations> readDiffList(String dir){
         File cDir = new File(dir);
         if(!cDir.exists()){
             cDir.mkdirs();
             return null;
         }
+        if(parsingRule == null)
+            parsingRule = new Rules();
         return parsingRule.readDiffList(dir);
     }
 }

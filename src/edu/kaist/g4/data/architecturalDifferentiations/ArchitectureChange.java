@@ -42,6 +42,8 @@ public class ArchitectureChange {
     }
     
     public String getMessage() {
+        if(message.equals(""))
+            return "No comment";
         return message;
     }
     

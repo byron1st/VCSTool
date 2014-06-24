@@ -1,5 +1,7 @@
 package edu.kaist.g4.function.fileManager;
 
+import java.util.Vector;
+
 import edu.kaist.g4.data.Architecture;
 import edu.kaist.g4.data.architecturalDifferentiations.ArchitecturalDifferentiations;
 
@@ -53,5 +55,5 @@ public interface IFileManager {
      *
      * @return
      */
-    public ArchitecturalDifferentiations[] readDiffList();
+    public Vector<ArchitecturalDifferentiations> readDiffList();
 }

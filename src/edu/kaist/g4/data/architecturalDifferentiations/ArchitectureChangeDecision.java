@@ -12,6 +12,15 @@ import java.util.Vector;
  * 
  */
 public class ArchitectureChangeDecision {
+    private String id;
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     private String architectureChangeDrivers;
     private Vector<ArchitectureChange> architectureChanges = new Vector<ArchitectureChange>();
     

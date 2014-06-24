@@ -41,6 +41,7 @@ public class CVSMain {
     	            break;
     	        case "diff":
     	            vcsFunctionManager.callVCSFunction(VCSFunctions.DIFF, null);
+    	            break;
     	        default:
     	            System.out.println("Wrong argument.");
     	            break;
