@@ -20,7 +20,6 @@ import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.Attributes;
 
@@ -34,9 +33,6 @@ import edu.kaist.g4.data.TraceabilityLink;
 import edu.kaist.g4.data.ViewType;
 import edu.kaist.g4.data.architecturalDifferentiations.ArchitecturalDifferentiations;
 import edu.kaist.g4.data.architecturalDifferentiations.ArchitectureChange;
-import edu.kaist.g4.data.architecturalDifferentiations.ArchitectureChangeDecision;
-import edu.kaist.g4.data.architecturalDifferentiations.ChangeOperationTypes;
-
 
 public class Rules{
     private String linkSrcId;
@@ -416,93 +412,9 @@ public class Rules{
         
     }
     
-    public Vector<ArchitecturalDifferentiations> readDiffList(String dir){
+    public ArchitecturalDifferentiations[] readDiffList(String dir){
         //TODO
-        
-        Vector<ArchitecturalDifferentiations> diffLists = null;
-        
-        try{
-            DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance(); 
-            DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
-            Document doc = docBuilder.newDocument();
-            Element rootElement, segmentElement;
-            Attr attr;
-            
-            File diffFile = new File(dir + "/Differences.xml");
-            
-            if(diffFile.exists() == false){
-                //root element
-                System.out.println("diff file not exist");
-                return null;
-            }
-            else{
-                doc = docBuilder.parse(diffFile);
-                rootElement = doc.getDocumentElement();
-            }
-            
-            diffLists = new Vector<ArchitecturalDifferentiations>();
-            
-            doc.getDocumentElement().normalize();
-            NodeList nodeList = doc.getElementsByTagName("Revision");
-
-            // each Revision
-            for(int i=0; i<nodeList.getLength(); i++){          
-                Node node  = nodeList.item(i);
-                Element revision = (Element)node;
-                // ChangeDecision
-                Element decision = (Element)(revision.getElementsByTagName("ChangeDecision").item(0));
-                //All ArchitectureChange List 
-                NodeList changes = decision.getElementsByTagName("ArchitectureChange");
-
-                //make vector for ArchitectureChange
-                Vector<ArchitectureChange> architectureChange = new Vector<ArchitectureChange>();
-                for(int j=0; j<changes.getLength();j++){
-                    
-                    //make object of each ArchitecureChange and push them into vector
-                    Element change = (Element)changes.item(j);
-                    //constructor parametor
-                    String operationType = change.getAttribute("operation");
-                    String id = change.getAttribute("id");
-                    String message = change.getAttribute("message");
-                    
-                    ArchitectureChange c;
-                    if(operationType.equals("ADD")){
-                        c = new ArchitectureChange(ChangeOperationTypes.ADD, id, message);                        
-                    }
-                    else if(operationType.equals("DELETE")){
-                        c = new ArchitectureChange(ChangeOperationTypes.DELETE, id, message);
-                    }
-                    else{
-                        c = new ArchitectureChange(ChangeOperationTypes.MODIFY, id, message);
-                    }
-                    architectureChange.add(c);
-                }
-                String changeDecision = decision.getAttribute("message");
-                String id = decision.getAttribute("id");
-                
-                //from revision attr
-                String timestamp = revision.getAttribute("timestamp");
-                
-                ArchitectureChangeDecision architectureChangeDecision = new ArchitectureChangeDecision();
-                architectureChangeDecision.setArchitectureChangeDrivers(changeDecision);
-                architectureChangeDecision.setArchitectureChanges(architectureChange);
-                architectureChangeDecision.setId(id);
-                
-                ArchitecturalDifferentiations ad = new ArchitecturalDifferentiations(architectureChangeDecision, architectureChange);
-                ad.setId(id);
-                ad.setTimestamp(timestamp);
-                diffLists.add(ad);
-            }
-            
-
-            
-        }catch(ParserConfigurationException pce){
-            pce.printStackTrace();
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-            
-        return diffLists;
+        return null;
         
     }
 }
