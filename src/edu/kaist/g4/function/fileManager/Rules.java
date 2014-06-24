@@ -425,8 +425,7 @@ public class Rules{
             DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance(); 
             DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
             Document doc = docBuilder.newDocument();
-            Element rootElement, segmentElement;
-            Attr attr;
+            Element rootElement;
             
             File diffFile = new File(dir + "/Differences.xml");
             
@@ -442,15 +441,15 @@ public class Rules{
             
             diffLists = new Vector<ArchitecturalDifferentiations>();
             
-            doc.getDocumentElement().normalize();
-            NodeList nodeList = doc.getElementsByTagName("Revision");
+            rootElement.normalize();
+            NodeList nodeList = doc.getElementsByTagName("ChangeDecision");
 
             // each Revision
             for(int i=0; i<nodeList.getLength(); i++){          
                 Node node  = nodeList.item(i);
-                Element revision = (Element)node;
+                Element decision = (Element)node;
                 // ChangeDecision
-                Element decision = (Element)(revision.getElementsByTagName("ChangeDecision").item(0));
+//                Element decision = (Element)(revision.getElementsByTagName("ChangeDecision").item(0));
                 //All ArchitectureChange List 
                 NodeList changes = decision.getElementsByTagName("ArchitectureChange");
 
@@ -482,7 +481,7 @@ public class Rules{
                 String id = decision.getAttribute("id");
                 
                 //from revision attr
-                String timestamp = revision.getAttribute("timestamp");
+//                String timestamp = revision.getAttribute("timestamp");
                 
                 ArchitectureChangeDecision architectureChangeDecision = new ArchitectureChangeDecision();
                 architectureChangeDecision.setArchitectureChangeDrivers(changeDecision);
@@ -491,7 +490,7 @@ public class Rules{
                 
                 ArchitecturalDifferentiations ad = new ArchitecturalDifferentiations(architectureChangeDecision, architectureChange);
                 ad.setId(id);
-                ad.setTimestamp(timestamp);
+ //               ad.setTimestamp(timestamp);
                 diffLists.add(ad);
             }
             
